@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-	
+
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-	
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AppController">
-	<!-- TODO Add Nodes -->
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="controller.AppController">
+   <center>
+      <AnchorPane prefHeight="650.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane fx:id="menuScreen" prefHeight="650.0" prefWidth="1000.0" />
+            <AnchorPane fx:id="gameMap1" prefHeight="650.0" prefWidth="1000.0" />
+         </children>
+      </AnchorPane>
+   </center>
 </BorderPane>
