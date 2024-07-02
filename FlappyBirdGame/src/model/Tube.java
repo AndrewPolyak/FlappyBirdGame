@@ -6,7 +6,7 @@ import javafx.scene.shape.Rectangle;
  * The Tube class is a GameModel child class which contains the unique properties and methods related to tubes
  * 
  * @author Andrew Polyak
- * @version June 30, 2024
+ * @version July 1, 2024
  */
 public class Tube extends GameModel {
 	
@@ -16,7 +16,9 @@ public class Tube extends GameModel {
 	
 	private static final double X_VELOCITY = 5; // Represents the horizontal velocity of the tube from right-to-left
 	
-	boolean topTube; // Represents whether the tube should spawn on the top of the screen (true) or not (false)
+	private boolean topTube; // Represents whether the tube should spawn on the top of the screen (true) or not (false)
+	
+	private double height; // Represents the tube's height
 	
 	private Rectangle tube; // Represents the tube
 	
@@ -31,9 +33,10 @@ public class Tube extends GameModel {
 	 * @param tube
 	 * @param topTube
 	 */
-	public Tube(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, Rectangle tube, boolean topTube) {
+	public Tube(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, Rectangle tube, boolean topTube, double height) {
 		super(xCoordLeft, xCoordRight, yCoordTop, yCoordBottom);
 		this.topTube = topTube;
+		this.height = height;
 	}
 
 	
@@ -55,6 +58,26 @@ public class Tube extends GameModel {
 			tube.setLayoutY(Y_BOTTOM_SPAWN); // Spawn tube on bottom of screen
 		}
 		tube.setLayoutX(X_SPAWN); // Spawn the tube on the right of the screen
+	}
+
+
+	/**
+	 * The getHeight method accesses the tube's height value
+	 * 
+	 * @return height
+	 */
+	public double getHeight() {
+		return height;
+	}
+
+
+	/**
+	 * The setHeight method assigns a value to height
+	 * 
+	 * @param height
+	 */
+	public void setHeight(double height) {
+		this.height = height;
 	}
 
 }
