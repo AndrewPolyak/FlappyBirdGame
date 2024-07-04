@@ -1,14 +1,15 @@
 package model;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
 
 /**
- * The Tube class is a GameModel child class which contains the unique properties and methods related to tubes
+ * The Tube class contains the unique properties and methods related to tubes
  * 
  * @author Andrew Polyak
- * @version July 1, 2024
+ * @version July 3, 2024
  */
-public class Tube extends GameModel {
+public class Tube {
 	
 	private static final int X_SPAWN = 1000; // Represents the x-coordinate the tube will spawn on
 	private static final int Y_TOP_SPAWN = 0; // Represents the y-coordinate the top-tube will spawn on
@@ -20,7 +21,8 @@ public class Tube extends GameModel {
 	
 	private double height; // Represents the tube's height
 	
-	private Rectangle tube; // Represents the tube
+	private ImageView tube; // Represents the tube sprite
+	private Rectangle tubeHitBox; // Represents the tube hit box
 	
 
 	/**
@@ -33,10 +35,11 @@ public class Tube extends GameModel {
 	 * @param tube
 	 * @param topTube
 	 */
-	public Tube(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, Rectangle tube, boolean topTube, double height) {
-		super(xCoordLeft, xCoordRight, yCoordTop, yCoordBottom);
+	public Tube(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, boolean topTube, double height, ImageView tube, Rectangle tubeHitBox) {
 		this.topTube = topTube;
 		this.height = height;
+		this.tube = tube;
+		this.tubeHitBox = tubeHitBox;
 	}
 
 	
@@ -45,6 +48,7 @@ public class Tube extends GameModel {
 	 */
 	public void move() {
 		tube.setLayoutX(tube.getLayoutX() - X_VELOCITY); // Move tube leftwards
+		syncHitBox();
 	}
 	
 	
@@ -58,6 +62,16 @@ public class Tube extends GameModel {
 			tube.setLayoutY(Y_BOTTOM_SPAWN); // Spawn tube on bottom of screen
 		}
 		tube.setLayoutX(X_SPAWN); // Spawn the tube on the right of the screen
+		syncHitBox();
+	}
+	
+	
+	/**
+	 * The syncHitBox method sets aligns the tube's hit box coordinates with it's sprite coordinates
+	 */
+	private void syncHitBox() {
+		tubeHitBox.setLayoutY(tube.getLayoutY());
+		tubeHitBox.setLayoutX(tube.getLayoutX());
 	}
 
 

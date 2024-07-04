@@ -1,15 +1,17 @@
 package model;
 
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 
 /**
- * The Bird class is a GameModel child class which contains the unique properties and methods related to the bird
+ * The Bird class contains the unique properties and methods related to the bird
  * 
  * @author Andrew Polyak
- * @version June 30, 2024
+ * @version July 3, 2024
  */
-public class Bird extends GameModel {
+public class Bird {
 
 	private static final int RISE_VELOCITY = 5; // Represents the vertical velocity caused by the bird's flap
 	private static final int MAX_RISE = 50; // Represents the vertical distance the bird's flap will cover
@@ -21,11 +23,15 @@ public class Bird extends GameModel {
 	private static final int X_SPAWN = 500; // Represents the default x-coordinate position for the bird's spawn
 	private static final int Y_SPAWN = 325; // Represents the default y-coordinate position for the bird's spawn
 	
+	private static final int X_HIT_BOX_SYNC = 48; // Represents the x-coordinate offset between the bird sprite and bird hit box
+	private static final int Y_HIT_BOX_SYNC = 33; // Represents the y-coordinate offset between the bird sprite and bird hit box
+	
 	private double yVelocity; // Represents the vertical velocity of the bird
 	
 	private boolean rising; // Represents whether the bird is rising (true) or falling (false)
 	
-	private Circle bird; // Represents the bird
+	private ImageView bird; // Represents the bird sprite
+	private Circle birdHitBox; // Represents the bird hit box
 	
 	
 	/**
@@ -36,10 +42,11 @@ public class Bird extends GameModel {
 	 * @param yCoordTop
 	 * @param yCoordBottom
 	 * @param bird
+	 * @param birdHitBox
 	 */
-	public Bird(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, Circle bird) {
-		super(xCoordLeft, xCoordRight, yCoordTop, yCoordBottom);
+	public Bird(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, ImageView bird, Circle birdHitBox) {
 		this.bird = bird;
+		this.birdHitBox = birdHitBox;
 	}
 	
 	
@@ -50,6 +57,7 @@ public class Bird extends GameModel {
 		rising = true;
 		yVelocity = RISE_VELOCITY; // Change bird's velocity
 		bird.setLayoutY(bird.getLayoutY() - yVelocity); // Move bird upward
+		syncHitBox();
 	}
 	
 	
@@ -66,6 +74,7 @@ public class Bird extends GameModel {
 			}
 		}
 		bird.setLayoutY(bird.getLayoutY() + yVelocity); // Move bird downward
+		syncHitBox();
 	}
 	
 	
@@ -75,6 +84,27 @@ public class Bird extends GameModel {
 	public void spawn() {
 		bird.setLayoutX(X_SPAWN);
 		bird.setLayoutY(Y_SPAWN);
+		syncHitBox();
+	}
+	
+	
+	/**
+	 * The syncHitBox method sets aligns the bird's hit box coordinates with it's sprite coordinates
+	 */
+	private void syncHitBox() {
+		birdHitBox.setLayoutY(bird.getLayoutY() + Y_HIT_BOX_SYNC);
+		birdHitBox.setLayoutX(bird.getLayoutX() + X_HIT_BOX_SYNC);
+	}
+	
+	
+	/**
+	 * The tubeHitBox method returns true if the bird hit the tube, false otherwise
+	 * 
+	 * @param tubeHitBox
+	 * @return true if the bird hit the tube, false otherwise
+	 */
+	public boolean hitTube(Rectangle tubeHitBox) {
+		return birdHitBox.getBoundsInParent().intersects(tubeHitBox.getBoundsInParent());
 	}
 
 
