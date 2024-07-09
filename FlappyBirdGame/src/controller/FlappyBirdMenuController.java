@@ -6,35 +6,36 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
 /**
- * TODO
+ * The FlappyBirdMenuController class contains the logic related to controlling the application's menu
+ * 
+ * @author Andrew Polyak
+ * @version July 5, 2024
  */
 public class FlappyBirdMenuController {
 	
-	private Button mapOneToggleBtn; // TODO
-	private Button mapTwoToggleBtn; // TODO
-	private Button mapThreeToggleBtn; // TODO
+	private Button mapOneToggleBtn; // Represents the button to toggle map one
+	private Button mapTwoToggleBtn; // Represents the button to toggle map two
+	private Button mapThreeToggleBtn; // Represents the button to toggle map three
 	
-	private Button birdOneToggleBtn; // TODO
-	private Button birdTwoToggleBtn; // TODO
-	private Button birdThreeToggleBtn; // TODO
+	private Button birdOneToggleBtn; // Represents the button to toggle bird one
+	private Button birdTwoToggleBtn; // Represents the button to toggle bird two
+	private Button birdThreeToggleBtn; // Represents the button to toggle bird three
 	
-	private ImageView mapOne; // TODO
-	private ImageView mapTwo; // TODO
-	private ImageView mapThree; // TODO
+	private ImageView mapOne; // Represents map one
+	private ImageView mapTwo; // Represents map two
+	private ImageView mapThree; // Represents map three
 	
-	private ImageView birdOne; // TODO
-	private ImageView birdTwo; // TODO
-	private ImageView birdThree; // TODO
+	private ImageView birdOne; // Represents bird one
+	private ImageView birdTwo; // Represents bird two
+	private ImageView birdThree; // Represents bird three
 	
-	private boolean birdOneVisible; // TODO
-	private boolean birdTwoVisible; // TODO
-	private boolean birdThreeVisible; // TODO
-	
-	private AnchorPane menuScreen; // TODO
+	private boolean birdOneVisible; // Represents whether bird one is selected and visible
+	private boolean birdTwoVisible; // Represents whether bird two is selected and visible
+	private boolean birdThreeVisible; // Represents whether bird three is selected and visible
 	
 	
 	/**
-	 * TODO
+	 * The FlappyBirdMenuController initializes the properties relevant to menu controlling
 	 * 
 	 * @param mapOneToggleBtn
 	 * @param mapTwoToggleBtn
@@ -68,7 +69,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The detectInput method contains event listeners for all menu interactions
 	 */
 	public void detectInput() {
 		// Detect map toggle button presses
@@ -87,7 +88,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The mapOneToggleBtnHandler method loads map one
 	 */
 	private void mapOneToggleBtnHandler() {
 		mapOneToggleBtn.setOnMouseClicked(e -> {
@@ -99,7 +100,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The mapTwoToggleBtnHandler method loads map two
 	 */
 	private void mapTwoToggleBtnHandler() {
 		mapTwoToggleBtn.setOnMouseClicked(e -> {
@@ -111,7 +112,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The mapThreeToggleBtnHandler method loads map three
 	 */
 	private void mapThreeToggleBtnHandler() {
 		mapThreeToggleBtn.setOnMouseClicked(e -> {
@@ -123,7 +124,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdOneToggleBtnHandler method loads bird one
 	 */
 	private void birdOneToggleBtnHandler() {
 		birdOneToggleBtn.setOnMouseClicked(e -> {
@@ -139,7 +140,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdTwoToggleBtnHandler method loads bird two
 	 */
 	private void birdTwoToggleBtnHandler() {
 		birdTwoToggleBtn.setOnMouseClicked(e -> {
@@ -155,7 +156,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdThreeToggleBtnHandler method loads bird three
 	 */
 	private void birdThreeToggleBtnHandler() {
 		birdThreeToggleBtn.setOnMouseClicked(e -> {
@@ -171,7 +172,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The startGameHandler method contains a listener for a space bar press which will start the game
 	 */
 	private void startGameHandler() {
 		
@@ -190,16 +191,29 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The startGame method detects a space bar press and subsequently starts the game
 	 * 
 	 * @param button
 	 */
 	private void startGame(Button button) {
-		button.setOnKeyPressed(e -> { // If a key has been pressed while a button is in focus...
+		button.setOnKeyPressed(e -> { // If a key has been pressed while the button is in focus...
 			if (e.getCode() == KeyCode.SPACE) { // If the pressed key was the space bar...
-				System.out.println("GAME STARTED");
+				if (birdOneVisible) { // Start game with the bird one model
+					System.out.println("GAME STARTED");
+				} else if (birdTwoVisible) { // Start game with the bird two model
+					System.out.println("GAME STARTED");
+				} else if (birdThreeVisible){ // Start game with the bird three model
+					System.out.println("GAME STARTED");
+				} else {
+					System.out.println("Failure to load game");
+				}
 			}
 		});
+	}
+	
+	
+	private void hideButtons() {
+		
 	}
 	
 }

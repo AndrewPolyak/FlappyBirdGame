@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
  * The Tube class contains the unique properties and methods related to tubes
  * 
  * @author Andrew Polyak
- * @version July 3, 2024
+ * @version July 5, 2024
  */
 public class Tube {
 	
@@ -26,7 +26,7 @@ public class Tube {
 	
 
 	/**
-	 * The Tube constructor initializes the tube's superclass as well as it's own unique properties
+	 * The Tube constructor initializes the tube's unique properties
 	 * 
 	 * @param xCoordLeft
 	 * @param xCoordRight
@@ -35,11 +35,11 @@ public class Tube {
 	 * @param tube
 	 * @param topTube
 	 */
-	public Tube(double xCoordLeft, double xCoordRight, double yCoordTop, double yCoordBottom, boolean topTube, double height, ImageView tube, Rectangle tubeHitBox) {
-		this.topTube = topTube;
-		this.height = height;
+	public Tube(ImageView tube, Rectangle tubeHitBox, boolean topTube, double height) {
 		this.tube = tube;
 		this.tubeHitBox = tubeHitBox;
+		this.topTube = topTube;
+		this.height = height;
 	}
 
 	

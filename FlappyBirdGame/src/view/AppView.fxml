@@ -98,7 +98,7 @@
                   </Text>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="menuScreen" layoutY="-3.0" prefHeight="653.0" prefWidth="1000.0">
+            <AnchorPane fx:id="menuScreen" layoutY="-3.0" prefHeight="653.0" prefWidth="1000.0" visible="false">
                <children>
                   <AnchorPane layoutX="196.0" layoutY="56.0" prefHeight="117.0" prefWidth="608.0">
                      <children>
