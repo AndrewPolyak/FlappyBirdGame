@@ -128,7 +128,7 @@ public class AppController implements Initializable {
 		
 		
 		game = new FlappyBirdGameController(birdHitBox, topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
-				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, b);
+				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, b, scoreCounter);
 		
 		game.play();
 	}

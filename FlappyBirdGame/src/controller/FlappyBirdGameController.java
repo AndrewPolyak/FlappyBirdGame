@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import model.Bird;
 import model.Tube;
 
@@ -34,6 +35,11 @@ public class FlappyBirdGameController {
 	
 	private AnchorPane gameScreen;
 	
+	private Text scoreCounter;
+	
+	private int TOP_WALL = 0;
+	private int BOTTOM_WALL = 650;
+	
 	private boolean rising = false;
 	private double yCoordStart;
 	
@@ -42,7 +48,7 @@ public class FlappyBirdGameController {
 	public FlappyBirdGameController(Circle birdHitBox, Rectangle topPipeOneHitBox,
 			Rectangle topPipeTwoHitBox, Rectangle topPipeThreeHitBox, Rectangle bottomPipeOneHitBox,
 			Rectangle bottomPipeTwoHitBox, Rectangle bottomPipeThreeHitBox, AnchorPane gameScreen,
-			Bird bird) {
+			Bird bird, Text scoreCounter) {
 		this.birdHitBox = birdHitBox;
 		this.topPipeOneHitBox = topPipeOneHitBox;
 		this.topPipeTwoHitBox = topPipeTwoHitBox;
@@ -52,6 +58,7 @@ public class FlappyBirdGameController {
 		this.bottomPipeThreeHitBox = bottomPipeThreeHitBox;
 		this.gameScreen = gameScreen;
 		this.bird = bird;
+		this.scoreCounter = scoreCounter;
 	}
 	
 	
@@ -59,7 +66,13 @@ public class FlappyBirdGameController {
 	 * TODO
 	 */
 	public void play() {
+		scoreCounter.setVisible(true);
 		
+		// Allow for an initial flap at game start
+		rising = true;
+		yCoordStart = bird.getyCoord(); // Y-coordinate at start of flap is used to measure maximum possible rise
+		
+		// Begin game animation logic
 		animate = new AnimationTimer() {
 
 			/**
@@ -68,6 +81,8 @@ public class FlappyBirdGameController {
 			@Override
 			public void handle(long arg0) {
 				moveBird();
+				
+				endGame();
 			}
 		};
 		animate.start(); // Start game
@@ -90,7 +105,7 @@ public class FlappyBirdGameController {
 		});
 		
 		// Once the maximum rise height for a flap is reached, set rising to false to begin descent
-		if (yCoordStart - bird.getyCoord() >= Bird.getMaxRise()) {
+		if (flapComplete()) {
 			rising = false;
 		}
 		
@@ -103,11 +118,35 @@ public class FlappyBirdGameController {
 	}
 	
 	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	private boolean flapComplete() {
+		return yCoordStart - bird.getyCoord() >= Bird.getMaxRise();
+	}
 	
 	
+	/**
+	 * TODO
+	 */
+	private void endGame() {
+		if (birdTouchingWall()) {
+			bird.spawn();
+			animate.stop();
+		}
+	}
 	
 	
-	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	private boolean birdTouchingWall() {
+		return (bird.getyCoord() > BOTTOM_WALL) || (bird.getyCoord() < TOP_WALL);
+	}
 	
 	
 }

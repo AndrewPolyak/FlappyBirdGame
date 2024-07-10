@@ -9,22 +9,26 @@ import javafx.scene.shape.Rectangle;
  * The Bird class contains the unique properties and methods related to the bird
  * 
  * @author Andrew Polyak
- * @version July 5, 2024
+ * @version July 9, 2024
  */
 public class Bird {
 
-	private static final int RISE_VELOCITY = 5; // Represents the vertical velocity caused by the bird's flap TODO adjust this value
-	private static final int MAX_RISE = 50; // Represents the vertical distance the bird's flap will cover TODO adjust this value
+	private static final double RISE_VELOCITY = 12; // Represents the vertical velocity caused by the bird's flap
+	private static final int MAX_RISE = 135; // Represents the vertical distance the bird's flap will cover
 	
-	private static final int MIN_FALL_VELOCITY = 1; // Represents the bird's minimum (and starting) falling velocity TODO adjust this value
-	private static final int MAX_FALL_VELOCITY = 10; // Represents the bird's maximum vertical falling velocity TODO adjust this value
-	private static final int GRAVITY = 1; // Represents the gravity which will accumulate on the falling velocity TODO adjust this value
+	private static final double MIN_FALL_VELOCITY = 5; // Represents the bird's minimum (and starting) falling velocity
+	private static final double MAX_FALL_VELOCITY = 12; // Represents the bird's maximum vertical falling velocity
+	private static final double GRAVITY = 0.2; // Represents the gravity which will accumulate on the falling velocity
 	
 	private static final int X_SPAWN = 500; // Represents the default x-coordinate position for the bird's spawn
 	private static final int Y_SPAWN = 325; // Represents the default y-coordinate position for the bird's spawn
 	
-	private static final int X_HIT_BOX_SYNC = 48; // Represents the x-coordinate offset between the bird sprite and bird hit box TODO adjust this value
-	private static final int Y_HIT_BOX_SYNC = 33; // Represents the y-coordinate offset between the bird sprite and bird hit box TODO adjust this value
+	private static final int X_HIT_BOX_SYNC = 11; // Represents the x-coordinate offset between the bird sprite and bird hit box
+	private static final int Y_HIT_BOX_SYNC = -3; // Represents the y-coordinate offset between the bird sprite and bird hit box
+	
+	private static final double RISING_ROTATION = -25; // TODO comment
+	private static final double FALLING_ROTATION = 25; // TODO comment
+	private static final double STANDARD_ROTATION = 0; // TODO comment
 	
 	private double yVelocity; // Represents the vertical velocity of the bird
 	
@@ -58,6 +62,8 @@ public class Bird {
 		yVelocity = RISE_VELOCITY; // Change bird's velocity
 		birdHitBox.setLayoutY(birdHitBox.getLayoutY() - yVelocity); // Move bird upward
 		syncHitBox();
+		bird.setRotate(STANDARD_ROTATION); // TODO comment
+		bird.setRotate(RISING_ROTATION); // TODO comment
 	}
 	
 	
@@ -68,6 +74,7 @@ public class Bird {
 		if (rising) { // If the bird is just beginning to fall, then rising is still true at this point
 			yVelocity = MIN_FALL_VELOCITY; // Change bird's velocity
 			rising = false; // Set rising to true so that this block won't repeat before the rise method is called again
+			bird.setRotate(STANDARD_ROTATION); // TODO comment
 		} else {
 			if (yVelocity < MAX_FALL_VELOCITY) { // While falling, if yVelocity is less than the maximum falling velocity...
 				yVelocity += GRAVITY; // Increase bird's velocity
@@ -75,6 +82,7 @@ public class Bird {
 		}
 		birdHitBox.setLayoutY(birdHitBox.getLayoutY() + yVelocity); // Move bird downward
 		syncHitBox();
+		bird.setRotate(FALLING_ROTATION); // TODO comment
 	}
 	
 	
@@ -82,9 +90,10 @@ public class Bird {
 	 * The spawn method sets the bird's position to it's default starting coordinates
 	 */
 	public void spawn() {
-		bird.setLayoutX(X_SPAWN);
-		bird.setLayoutY(Y_SPAWN);
+		birdHitBox.setLayoutX(X_SPAWN);
+		birdHitBox.setLayoutY(Y_SPAWN);
 		syncHitBox();
+		bird.setRotate(STANDARD_ROTATION); // TODO comment
 	}
 	
 	
@@ -92,8 +101,8 @@ public class Bird {
 	 * The syncHitBox method sets aligns the bird's hit box coordinates with it's sprite coordinates
 	 */
 	private void syncHitBox() {
-		bird.setLayoutY(birdHitBox.getLayoutY() + Y_HIT_BOX_SYNC); // FIXME coordinates are way off for the syncing
-		bird.setLayoutX(birdHitBox.getLayoutX() + X_HIT_BOX_SYNC); // FIXME coordinates are way off for the syncing
+		bird.setLayoutY(birdHitBox.getLayoutY() - (Y_HIT_BOX_SYNC + birdHitBox.getRadius()));
+		bird.setLayoutX(birdHitBox.getLayoutX() - (X_HIT_BOX_SYNC + birdHitBox.getRadius()));
 	}
 	
 	
@@ -119,7 +128,7 @@ public class Bird {
 	
 	
 	/**
-	 * TODO
+	 * TODO JavaDoc
 	 * 
 	 * @return
 	 */
@@ -129,7 +138,7 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * TODO JavaDoc
 	 * 
 	 * @param xCoord
 	 */
@@ -140,7 +149,7 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * TODO JavaDoc
 	 * 
 	 * @return
 	 */
@@ -150,7 +159,7 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * TODO JavaDoc
 	 * 
 	 * @param yCoord
 	 */

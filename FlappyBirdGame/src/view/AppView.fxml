@@ -82,7 +82,7 @@
                               <Image url="@../../game_assets/top_pipe.png" />
                            </image>
                         </ImageView>
-                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="500.0" layoutY="330.0" radius="37.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="502.0" layoutY="328.0" radius="37.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                         <Rectangle fx:id="topPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="248.0" layoutX="705.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="80.0" />
                         <Rectangle fx:id="topPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="248.0" layoutX="786.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="80.0" />
                         <Rectangle fx:id="topPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="248.0" layoutX="867.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="80.0" />
