@@ -15,36 +15,41 @@ import model.Tube;
  * TODO
  * 
  * @author Andrew Polyak
- * @version TODO
+ * @version July 11, 2024
  */
 public class FlappyBirdGameController {
 
 	private AnimationTimer animate; // Represents the animation timer that will run and animate the game
 	
-	private Circle birdHitBox;
+	private Circle birdHitBox; // TODO comment
 	
-	private Rectangle topPipeOneHitBox;
-	private Rectangle topPipeTwoHitBox;
-	private Rectangle topPipeThreeHitBox;
-	private Rectangle bottomPipeOneHitBox;
-	private Rectangle bottomPipeTwoHitBox;
-	private Rectangle bottomPipeThreeHitBox;
+	private Rectangle topPipeOneHitBox; // TODO comment
+	private Rectangle topPipeTwoHitBox; // TODO comment
+	private Rectangle topPipeThreeHitBox; // TODO comment
+	private Rectangle bottomPipeOneHitBox; // TODO comment
+	private Rectangle bottomPipeTwoHitBox; // TODO comment
+	private Rectangle bottomPipeThreeHitBox; // TODO comment
 	
-	private Bird bird;
-	private Tube tube;
+	private Bird bird; // TODO comment
+	private Tube tube; // TODO comment
 	
-	private AnchorPane gameScreen;
+	private AnchorPane gameScreen; // TODO comment
 	
-	private Text scoreCounter;
+	private Text scoreCounter; // TODO comment
+	private int score;
 	
-	private int TOP_WALL = 0;
-	private int BOTTOM_WALL = 650;
+	private int TOP_WALL = 0; // TODO comment
+	private int BOTTOM_WALL = 650; // TODO comment
 	
-	private boolean rising = false;
-	private double yCoordStart;
+	private boolean rising = false; // TODO comment
+	private double yCoordStart; // TODO comment
+	
+	private double birdRotation = 0; // TODO comment
+	private static final double BIRD_UPWARD_ROTATION = 5; // TODO comment
+	private static final double BIRD_DOWNWARD_ROTATION = 2; // TODO comment
 	
 	
-	
+	// TODO JavaDoc
 	public FlappyBirdGameController(Circle birdHitBox, Rectangle topPipeOneHitBox,
 			Rectangle topPipeTwoHitBox, Rectangle topPipeThreeHitBox, Rectangle bottomPipeOneHitBox,
 			Rectangle bottomPipeTwoHitBox, Rectangle bottomPipeThreeHitBox, AnchorPane gameScreen,
@@ -111,9 +116,20 @@ public class FlappyBirdGameController {
 		
 		// Move the bird
 		if (rising) {
-			bird.rise();
+			
+			if (bird.getRotation() >= Bird.getMaxUpRotation()) {
+				birdRotation = birdRotation - BIRD_UPWARD_ROTATION;
+			}
+			
+			bird.rise(birdRotation);
+			
 		} else {
-			bird.fall();
+			
+			if (bird.getRotation() <= Bird.getMaxDownRotation()) {
+				birdRotation = birdRotation + BIRD_DOWNWARD_ROTATION;
+			} 
+			
+			bird.fall(birdRotation);
 		}
 	}
 	
@@ -147,6 +163,5 @@ public class FlappyBirdGameController {
 	private boolean birdTouchingWall() {
 		return (bird.getyCoord() > BOTTOM_WALL) || (bird.getyCoord() < TOP_WALL);
 	}
-	
 	
 }

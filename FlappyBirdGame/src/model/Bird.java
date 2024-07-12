@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
  * The Bird class contains the unique properties and methods related to the bird
  * 
  * @author Andrew Polyak
- * @version July 9, 2024
+ * @version July 11, 2024
  */
 public class Bird {
 
@@ -26,9 +26,9 @@ public class Bird {
 	private static final int X_HIT_BOX_SYNC = 11; // Represents the x-coordinate offset between the bird sprite and bird hit box
 	private static final int Y_HIT_BOX_SYNC = -3; // Represents the y-coordinate offset between the bird sprite and bird hit box
 	
-	private static final double RISING_ROTATION = -25; // TODO comment
-	private static final double FALLING_ROTATION = 25; // TODO comment
 	private static final double STANDARD_ROTATION = 0; // TODO comment
+	private static final double MAX_UP_ROTATION = -40; // TODO comment
+	private static final double MAX_DOWN_ROTATION = 40; // TODO comment
 	
 	private double yVelocity; // Represents the vertical velocity of the bird
 	
@@ -57,24 +57,22 @@ public class Bird {
 	/**
 	 * The move method moves the bird upwards (like a flapping movement)
 	 */
-	public void rise() {
+	public void rise(double rotation) {
 		rising = true;
 		yVelocity = RISE_VELOCITY; // Change bird's velocity
 		birdHitBox.setLayoutY(birdHitBox.getLayoutY() - yVelocity); // Move bird upward
 		syncHitBox();
-		bird.setRotate(STANDARD_ROTATION); // TODO comment
-		bird.setRotate(RISING_ROTATION); // TODO comment
+		setRotation(rotation);
 	}
 	
 	
 	/**
 	 * The fall method moves the bird downwards and increments the falling velocity via gravity
 	 */
-	public void fall() {
+	public void fall(double rotation) {
 		if (rising) { // If the bird is just beginning to fall, then rising is still true at this point
 			yVelocity = MIN_FALL_VELOCITY; // Change bird's velocity
 			rising = false; // Set rising to true so that this block won't repeat before the rise method is called again
-			bird.setRotate(STANDARD_ROTATION); // TODO comment
 		} else {
 			if (yVelocity < MAX_FALL_VELOCITY) { // While falling, if yVelocity is less than the maximum falling velocity...
 				yVelocity += GRAVITY; // Increase bird's velocity
@@ -82,7 +80,7 @@ public class Bird {
 		}
 		birdHitBox.setLayoutY(birdHitBox.getLayoutY() + yVelocity); // Move bird downward
 		syncHitBox();
-		bird.setRotate(FALLING_ROTATION); // TODO comment
+		setRotation(rotation);
 	}
 	
 	
@@ -93,7 +91,7 @@ public class Bird {
 		birdHitBox.setLayoutX(X_SPAWN);
 		birdHitBox.setLayoutY(Y_SPAWN);
 		syncHitBox();
-		bird.setRotate(STANDARD_ROTATION); // TODO comment
+		bird.setRotate(STANDARD_ROTATION);
 	}
 	
 	
@@ -167,5 +165,45 @@ public class Bird {
 		birdHitBox.setLayoutY(birdHitBox.getLayoutY());
 		syncHitBox();
 	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public double getRotation() {
+		return bird.getRotate();
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param rotation
+	 */
+	public void setRotation(double rotation) {
+		bird.setRotate(rotation);
+	}
 
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static double getMaxUpRotation() {
+		return MAX_UP_ROTATION;
+	}
+
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static double getMaxDownRotation() {
+		return MAX_DOWN_ROTATION;
+	}
+	
 }
