@@ -3,11 +3,8 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.FlappyBirdApp;
-import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -15,7 +12,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Bird;
-import model.Tube;
 
 
 /**
@@ -119,15 +115,6 @@ public class AppController implements Initializable {
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		handleApp();
-	}
-	
-	
-	/**
-	 * TODO
-	 */
-	private void handleApp() {
-		
 		menu = new FlappyBirdMenuController(mapOneToggleBtn, mapTwoToggleBtn, mapThreeToggleBtn, 
                 birdOneToggleBtn, birdTwoToggleBtn, birdThreeToggleBtn, mapOne, mapTwo, mapThree, bird, bird, bird, menuScreen); // TODO replace the bird repeats with different images
         
@@ -152,7 +139,7 @@ public class AppController implements Initializable {
 		menuScreen.setVisible(false);
 		scoreCounter.setVisible(true);
 		
-		game = new FlappyBirdGameController(birdHitBox, topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
+		game = new FlappyBirdGameController(topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
 				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, menuScreen, mapOneToggleBtn, initializeBirdModel(), scoreCounter);
 		
 		game.play();

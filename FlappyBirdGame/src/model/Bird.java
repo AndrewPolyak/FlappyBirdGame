@@ -29,6 +29,8 @@ public class Bird {
 	private static final double STANDARD_ROTATION = 0; // TODO comment
 	private static final double MAX_UP_ROTATION = -40; // TODO comment
 	private static final double MAX_DOWN_ROTATION = 40; // TODO comment
+	private static final double UPWARD_ROTATION_INCREMENT = 5; // TODO comment
+	private static final double DOWNWARD_ROTATION_INCREMENT = 2; // TODO comment
 	
 	private double yVelocity; // Represents the vertical velocity of the bird
 	
@@ -205,5 +207,27 @@ public class Bird {
 	public static double getMaxDownRotation() {
 		return MAX_DOWN_ROTATION;
 	}
+
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static double getUpwardRotationIncrement() {
+		return UPWARD_ROTATION_INCREMENT;
+	}
+
+
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public static double getDownwardRotationIncrement() {
+		return DOWNWARD_ROTATION_INCREMENT;
+	}
+	
+	
 	
 }
