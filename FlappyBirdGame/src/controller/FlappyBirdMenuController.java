@@ -1,5 +1,7 @@
 package controller;
 
+
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -9,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
  * The FlappyBirdMenuController class contains the logic related to controlling the application's menu
  * 
  * @author Andrew Polyak
- * @version July 5, 2024
+ * @version July 12, 2024
  */
 public class FlappyBirdMenuController {
 	
@@ -31,7 +33,6 @@ public class FlappyBirdMenuController {
 	
 	private boolean birdOneVisible; // Represents whether bird one is selected and visible
 	private boolean birdTwoVisible; // Represents whether bird two is selected and visible
-	private boolean birdThreeVisible; // Represents whether bird three is selected and visible
 	
 	private Runnable onGameStart;
 	
@@ -51,10 +52,11 @@ public class FlappyBirdMenuController {
 	 * @param birdOne
 	 * @param birdTwo
 	 * @param birdThree
+	 * @param menuScreen
 	 */
 	public FlappyBirdMenuController(Button mapOneToggleBtn, Button mapTwoToggleBtn, Button mapThreeToggleBtn,
 			Button birdOneToggleBtn, Button birdTwoToggleBtn, Button birdThreeToggleBtn, ImageView mapOne,
-			ImageView mapTwo, ImageView mapThree, ImageView birdOne, ImageView birdTwo, ImageView birdThree) {
+			ImageView mapTwo, ImageView mapThree, ImageView birdOne, ImageView birdTwo, ImageView birdThree, AnchorPane menuScreen) {
 		this.mapOneToggleBtn = mapOneToggleBtn;
 		this.mapTwoToggleBtn = mapTwoToggleBtn;
 		this.mapThreeToggleBtn = mapThreeToggleBtn;
@@ -74,6 +76,7 @@ public class FlappyBirdMenuController {
 	 * The detectInput method contains event listeners for all menu interactions
 	 */
 	public void detectInput() {
+		
 		// Detect map toggle button presses
 		mapOneToggleBtnHandler();
 		mapTwoToggleBtnHandler();
@@ -136,7 +139,6 @@ public class FlappyBirdMenuController {
 			
 			birdOneVisible = true;
 			birdTwoVisible = false;
-			birdThreeVisible = false;
 		});
 	}
 	
@@ -152,7 +154,6 @@ public class FlappyBirdMenuController {
 			
 			birdOneVisible = false;
 			birdTwoVisible = true;
-			birdThreeVisible = false;
 		});
 	}
 	
@@ -168,7 +169,6 @@ public class FlappyBirdMenuController {
 			
 			birdOneVisible = false;
 			birdTwoVisible = false;
-			birdThreeVisible = true;
 		});
 	}
 	
@@ -201,13 +201,27 @@ public class FlappyBirdMenuController {
 		button.setOnKeyPressed(e -> { // If a key has been pressed while the button is in focus...
 			if (e.getCode() == KeyCode.SPACE) { // If the pressed key was the space bar...
 				
-				// TODO logic to retrieve chosen bird and also open the game UI
-				
 				if (onGameStart != null) {
 					onGameStart.run();
 				}
 			}
 		});
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public ImageView getBirdSkin() {
+		if (birdOneVisible) {
+			return birdOne;
+		} else if (birdTwoVisible) {
+			return birdTwo;
+		} else {
+			return birdThree;
+		}
 	}
 	
 	

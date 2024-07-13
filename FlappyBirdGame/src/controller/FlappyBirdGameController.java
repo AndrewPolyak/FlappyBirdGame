@@ -15,7 +15,7 @@ import model.Tube;
  * TODO
  * 
  * @author Andrew Polyak
- * @version July 11, 2024
+ * @version July 13, 2024
  */
 public class FlappyBirdGameController {
 
@@ -34,6 +34,8 @@ public class FlappyBirdGameController {
 	private Tube tube; // TODO comment
 	
 	private AnchorPane gameScreen; // TODO comment
+	private AnchorPane menuScreen; // TODO comment
+	private Button mapOneToggleBtn; // TODO comment
 	
 	private Text scoreCounter; // TODO comment
 	private int score;
@@ -54,14 +56,12 @@ public class FlappyBirdGameController {
 	private boolean tubeOnePairScoreCounts; // This boolean remains true if the first pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 	private boolean tubeTwoPairScoreCounts; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 	private boolean tubeThreePairScoreCounts; // This boolean remains true if the third pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
-	
-	
-	
+
 	
 	// TODO JavaDoc
 	public FlappyBirdGameController(Circle birdHitBox, Rectangle topPipeOneHitBox,
 			Rectangle topPipeTwoHitBox, Rectangle topPipeThreeHitBox, Rectangle bottomPipeOneHitBox,
-			Rectangle bottomPipeTwoHitBox, Rectangle bottomPipeThreeHitBox, AnchorPane gameScreen,
+			Rectangle bottomPipeTwoHitBox, Rectangle bottomPipeThreeHitBox, AnchorPane gameScreen, AnchorPane menuScreen, Button mapOneToggleBtn,
 			Bird bird, Text scoreCounter) {
 		this.birdHitBox = birdHitBox;
 		this.topPipeOneHitBox = topPipeOneHitBox;
@@ -71,6 +71,8 @@ public class FlappyBirdGameController {
 		this.bottomPipeTwoHitBox = bottomPipeTwoHitBox;
 		this.bottomPipeThreeHitBox = bottomPipeThreeHitBox;
 		this.gameScreen = gameScreen;
+		this.menuScreen = menuScreen;
+		this.mapOneToggleBtn = mapOneToggleBtn;
 		this.bird = bird;
 		this.scoreCounter = scoreCounter;
 	}
@@ -240,8 +242,11 @@ public class FlappyBirdGameController {
 	 */
 	private void endGameListener() {
 		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
-			bird.spawn();
-			animate.stop();
+			bird.spawn(); // Reset bird
+			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
+			scoreCounter.setVisible(false); // Hide score counter
+			menuScreen.setVisible(true); // Show main menu
+			mapOneToggleBtn.requestFocus(); // Set focus to a button on the main menu to allow for the user to easily start another game (because the space bar listener exists on a button node)
 		} 
 	}
 	
