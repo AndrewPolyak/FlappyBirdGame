@@ -33,6 +33,8 @@ public class FlappyBirdMenuController {
 	private boolean birdTwoVisible; // Represents whether bird two is selected and visible
 	private boolean birdThreeVisible; // Represents whether bird three is selected and visible
 	
+	private Runnable onGameStart;
+	
 	
 	/**
 	 * The FlappyBirdMenuController initializes the properties relevant to menu controlling
@@ -198,22 +200,24 @@ public class FlappyBirdMenuController {
 	private void startGame(Button button) {
 		button.setOnKeyPressed(e -> { // If a key has been pressed while the button is in focus...
 			if (e.getCode() == KeyCode.SPACE) { // If the pressed key was the space bar...
-				if (birdOneVisible) { // Start game with the bird one model
-					System.out.println("GAME STARTED");
-				} else if (birdTwoVisible) { // Start game with the bird two model
-					System.out.println("GAME STARTED");
-				} else if (birdThreeVisible){ // Start game with the bird three model
-					System.out.println("GAME STARTED");
-				} else {
-					System.out.println("Failure to load game");
+				
+				// TODO logic to retrieve chosen bird and also open the game UI
+				
+				if (onGameStart != null) {
+					onGameStart.run();
 				}
 			}
 		});
 	}
 	
 	
-	private void hideButtons() {
-		
+	/**
+	 * TODO
+	 * 
+	 * @param onGameStart
+	 */
+	public void setOnGameStartSuccess(Runnable onGameStart) {
+		this.onGameStart = onGameStart;
 	}
 	
 }

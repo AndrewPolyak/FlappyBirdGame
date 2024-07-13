@@ -70,8 +70,8 @@ public class Tube {
 	 * The syncHitBox method sets aligns the tube's hit box coordinates with it's sprite coordinates
 	 */
 	private void syncHitBox() {
-		tubeHitBox.setLayoutY(tube.getLayoutY());
-		tubeHitBox.setLayoutX(tube.getLayoutX());
+		tube.setLayoutY(tubeHitBox.getLayoutY());
+		tube.setLayoutX(tubeHitBox.getLayoutX());
 	}
 
 

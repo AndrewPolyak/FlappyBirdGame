@@ -123,10 +123,25 @@ public class AppController implements Initializable {
 		menu = new FlappyBirdMenuController(mapOneToggleBtn, mapTwoToggleBtn, mapThreeToggleBtn, 
                 birdOneToggleBtn, birdTwoToggleBtn, birdThreeToggleBtn, mapOne, mapTwo, mapThree, bird, bird, bird);
         
-		//menu.detectInput(); // TODO
+		menu.detectInput();
 		
+		getGameStart();
 		
-		
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void getGameStart() {
+		menu.setOnGameStartSuccess(() -> startGame());
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void startGame() {
 		game = new FlappyBirdGameController(birdHitBox, topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
 				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, b, scoreCounter);
 		

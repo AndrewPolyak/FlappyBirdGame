@@ -40,6 +40,7 @@ public class FlappyBirdGameController {
 	
 	private int TOP_WALL = 0; // TODO comment
 	private int BOTTOM_WALL = 650; // TODO comment
+	private static final int LEFT_WALL = 0; // TODO comment
 	
 	private boolean rising = false; // TODO comment
 	private double yCoordStart; // TODO comment
@@ -47,6 +48,14 @@ public class FlappyBirdGameController {
 	private double birdRotation = 0; // TODO comment
 	private static final double BIRD_UPWARD_ROTATION = 5; // TODO comment
 	private static final double BIRD_DOWNWARD_ROTATION = 2; // TODO comment
+	
+	private static final int SCORE_COORDINATE = 500; // Represents the x coordinate which a tube must reach to facilitate a score increase
+	
+	private boolean tubeOnePairScoreCounts; // This boolean remains true if the first pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	private boolean tubeTwoPairScoreCounts; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	private boolean tubeThreePairScoreCounts; // This boolean remains true if the third pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	
+	
 	
 	
 	// TODO JavaDoc
@@ -85,9 +94,11 @@ public class FlappyBirdGameController {
 			 */
 			@Override
 			public void handle(long arg0) {
-				moveBird();
-				
-				endGame();
+				moveBirdListener(); // Logic for player to control the bird
+				moveTubes(); // Logic to move the tubes from right-to-left
+				incrementScoreListener(); // Logic to check if the bird made it through a pair of tubes
+				respawnTubesListener(); // Logic to respawn tubes once they reach the left side of the screen
+				endGameListener(); // Logic to end the game once the bird hits a tube, the floor, or the ceiling
 			}
 		};
 		animate.start(); // Start game
@@ -97,7 +108,7 @@ public class FlappyBirdGameController {
 	/**
 	 * TODO
 	 */
-	private void moveBird() {
+	private void moveBirdListener() {
 		gameScreen.requestFocus();
 		
 		// Listen for the user SPACE input to set rising to true to begin ascent
@@ -147,11 +158,91 @@ public class FlappyBirdGameController {
 	/**
 	 * TODO
 	 */
-	private void endGame() {
-		if (birdTouchingWall()) {
+	private void moveTubes() {
+		// TODO
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void respawnTubesListener() {
+		if (tubesAtScreenEnd(bottomPipeOneHitBox, topPipeOneHitBox)) { // If the first pair of tubes have reached the edge of the screen...
+			// TODO spawn pair of tubes
+			tubeOnePairScoreCounts = true;
+			
+		} else if (tubesAtScreenEnd(bottomPipeTwoHitBox, topPipeTwoHitBox)) {
+			// TODO spawn pair of tubes
+			tubeTwoPairScoreCounts = true;
+			
+		} else if ((tubesAtScreenEnd(bottomPipeThreeHitBox, topPipeThreeHitBox))) {
+			// TODO spawn pair of tubes
+			tubeThreePairScoreCounts = true;
+			
+		}
+	}
+	
+	
+	/**
+	 * TODO
+	 * @param bottomTube
+	 * @param topTube
+	 * @return
+	 */
+	private boolean tubesAtScreenEnd(Rectangle bottomTube, Rectangle topTube) {
+		return bottomTube.getLayoutX() <= LEFT_WALL && topTube.getLayoutX() <= LEFT_WALL;
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void incrementScoreListener() {
+		
+		if (tubesPassedBird(bottomPipeOneHitBox, topPipeOneHitBox)) {
+			if (tubeOnePairScoreCounts) {
+				score++;
+				scoreCounter.setText(score + "");
+				tubeOnePairScoreCounts = false;
+			}
+			
+		} else if (tubesPassedBird(bottomPipeTwoHitBox, topPipeTwoHitBox)) {
+			if (tubeTwoPairScoreCounts) {
+				score++;
+				scoreCounter.setText(score + "");
+				tubeTwoPairScoreCounts = false;
+			}
+			
+		} else if (tubesPassedBird(bottomPipeThreeHitBox, topPipeThreeHitBox)) {
+			if (tubeThreePairScoreCounts) {
+				score++;
+				scoreCounter.setText(score + "");
+				tubeThreePairScoreCounts = false;
+			}
+		}
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param bottomTube
+	 * @param topTube
+	 * @return
+	 */
+	private boolean tubesPassedBird(Rectangle bottomTube, Rectangle topTube) {
+		return bottomTube.getLayoutX() <= SCORE_COORDINATE && topTube.getLayoutX() <= SCORE_COORDINATE;
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void endGameListener() {
+		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
 			bird.spawn();
 			animate.stop();
-		}
+		} 
 	}
 	
 	
@@ -162,6 +253,30 @@ public class FlappyBirdGameController {
 	 */
 	private boolean birdTouchingWall() {
 		return (bird.getyCoord() > BOTTOM_WALL) || (bird.getyCoord() < TOP_WALL);
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	private boolean birdTouchingTube() {
+		if (bird.hitTube(bottomPipeOneHitBox)) {
+			return true;
+		} else if (bird.hitTube(bottomPipeTwoHitBox)) {
+			return true;
+		} else if (bird.hitTube(bottomPipeThreeHitBox)) {
+			return true;
+		} else if (bird.hitTube(topPipeOneHitBox)) {
+			return true;
+		} else if (bird.hitTube(topPipeTwoHitBox)) {
+			return true;
+		} else if (bird.hitTube(topPipeThreeHitBox)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
