@@ -46,7 +46,7 @@ public class FlappyBirdGameController {
 	
 	private double birdRotation = 0; // Represents the current bird rotation amount
 	
-	private static final int SCORE_COORDINATE = 500; // Represents the x coordinate which a tube must reach to facilitate a score increase
+	private static final int SCORE_COORDINATE = 500; // Represents the x-coordinate which a tube must reach to facilitate a score increase
 	
 	private boolean tubeOnePairScoreCounts; // This boolean remains true if the first pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 	private boolean tubeTwoPairScoreCounts; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter

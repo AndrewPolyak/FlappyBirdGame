@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
  * The FlappyBirdMenuController class contains the logic related to controlling the application's menu
  * 
  * @author Andrew Polyak
- * @version July 12, 2024
+ * @version July 14, 2024
  */
 public class FlappyBirdMenuController {
 	
@@ -33,7 +33,7 @@ public class FlappyBirdMenuController {
 	private boolean birdOneVisible; // Represents whether bird one is selected and visible
 	private boolean birdTwoVisible; // Represents whether bird two is selected and visible
 	
-	private Runnable onGameStart;
+	private Runnable onGameStart; // Represents the thread to run the game
 	
 	
 	/**
@@ -201,7 +201,7 @@ public class FlappyBirdMenuController {
 			if (e.getCode() == KeyCode.SPACE) { // If the pressed key was the space bar...
 				
 				if (onGameStart != null) {
-					onGameStart.run();
+					onGameStart.run(); // Run game thread
 				}
 			}
 		});
@@ -209,9 +209,9 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The getBirdSkin method accesses the bird skin (i.e., ImageView object representing the bird's appearance)
 	 * 
-	 * @return
+	 * @return bird's ImageView object
 	 */
 	public ImageView getBirdSkin() {
 		if (birdOneVisible) {
@@ -225,7 +225,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The setOnGameStartSuccess method instantiates onGameStart (to allow the thread to run)
 	 * 
 	 * @param onGameStart
 	 */

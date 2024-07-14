@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
  * The Bird class contains the unique properties and methods related to the bird
  * 
  * @author Andrew Polyak
- * @version July 11, 2024
+ * @version July 14, 2024
  */
 public class Bird {
 
@@ -26,11 +26,11 @@ public class Bird {
 	private static final int X_HIT_BOX_SYNC = 11; // Represents the x-coordinate offset between the bird sprite and bird hit box
 	private static final int Y_HIT_BOX_SYNC = -3; // Represents the y-coordinate offset between the bird sprite and bird hit box
 	
-	private static final double STANDARD_ROTATION = 0; // TODO comment
-	private static final double MAX_UP_ROTATION = -40; // TODO comment
-	private static final double MAX_DOWN_ROTATION = 40; // TODO comment
-	private static final double UPWARD_ROTATION_INCREMENT = 5; // TODO comment
-	private static final double DOWNWARD_ROTATION_INCREMENT = 2; // TODO comment
+	private static final double STANDARD_ROTATION = 0; // Represents the standard rotation of the bird
+	private static final double MAX_UP_ROTATION = -40; // Represents the maximum upward rotation of the bird
+	private static final double MAX_DOWN_ROTATION = 40; // Represents the minimum downward rotation of the bird
+	private static final double UPWARD_ROTATION_INCREMENT = 5; // Represents the amount-per-frame the bird will rotate upward
+	private static final double DOWNWARD_ROTATION_INCREMENT = 2; /// Represents the amount-per-frame the bird will rotate downward
 	
 	private double yVelocity; // Represents the vertical velocity of the bird
 	
@@ -128,9 +128,9 @@ public class Bird {
 	
 	
 	/**
-	 * TODO JavaDoc
+	 * The getxCoord method returns the bird's current x-coordinate
 	 * 
-	 * @return
+	 * @return bird's current x-coordinate
 	 */
 	public double getxCoord() {
 		return birdHitBox.getLayoutX();
@@ -138,7 +138,7 @@ public class Bird {
 
 
 	/**
-	 * TODO JavaDoc
+	 * The setxCoord method sets the bird's x-coordinate to the passed in value of xCoord
 	 * 
 	 * @param xCoord
 	 */
@@ -149,9 +149,9 @@ public class Bird {
 
 
 	/**
-	 * TODO JavaDoc
+	 * The getyCoord method returns the bird's current y-coordinate
 	 * 
-	 * @return
+	 * @return bird's current y-coordinate
 	 */
 	public double getyCoord() {
 		return birdHitBox.getLayoutY();
@@ -159,7 +159,7 @@ public class Bird {
 
 
 	/**
-	 * TODO JavaDoc
+	 * The setyCoord method sets the bird's y-coordinate to the passed in value of yCoord
 	 * 
 	 * @param yCoord
 	 */
@@ -170,9 +170,9 @@ public class Bird {
 	
 	
 	/**
-	 * TODO
+	 * The getRotation method returns the bird's current rotation amount
 	 * 
-	 * @return
+	 * @return bird's rotation amount
 	 */
 	public double getRotation() {
 		return bird.getRotate();
@@ -180,7 +180,7 @@ public class Bird {
 	
 	
 	/**
-	 * TODO
+	 * The setRotation method sets the bird's rotation amount to the passed in value of rotation
 	 * 
 	 * @param rotation
 	 */
@@ -190,9 +190,9 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * The getMaxUpRotation method returns the MAX_UP_ROTATION value
 	 * 
-	 * @return
+	 * @return MAX_UP_ROTATION
 	 */
 	public static double getMaxUpRotation() {
 		return MAX_UP_ROTATION;
@@ -200,9 +200,9 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * The getMaxDownRotation method returns the MAX_DOWN_ROTATION value
 	 * 
-	 * @return
+	 * @return MAX_DOWN_ROTATION
 	 */
 	public static double getMaxDownRotation() {
 		return MAX_DOWN_ROTATION;
@@ -210,9 +210,9 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * The getUpwardRotationIncrement method returns the UPWARD_ROTATION_INCREMENT value
 	 * 
-	 * @return
+	 * @return UPWARD_ROTATION_INCREMENT
 	 */
 	public static double getUpwardRotationIncrement() {
 		return UPWARD_ROTATION_INCREMENT;
@@ -220,14 +220,12 @@ public class Bird {
 
 
 	/**
-	 * TODO
+	 * The getDownwardRotationIncrememnt method returns the DOWNWARD_ROTATION_INCREMENT value
 	 * 
-	 * @return
+	 * @return DOWNWARD_ROTATION_INCREMENT
 	 */
 	public static double getDownwardRotationIncrement() {
 		return DOWNWARD_ROTATION_INCREMENT;
 	}
-	
-	
 	
 }

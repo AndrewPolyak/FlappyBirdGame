@@ -15,7 +15,10 @@ import model.Bird;
 
 
 /**
- * TODO
+ * The AppController class contains the logic to coordinate the menu and gameplay of the application
+ * 
+ * @author Andrew Polyak
+ * @version July 14, 2024
  */
 public class AppController implements Initializable {
 	
@@ -103,37 +106,32 @@ public class AppController implements Initializable {
     @FXML
     private Rectangle topPipeTwoHitBox;
     
-    private FlappyBirdMenuController menu; // TODO
+    private FlappyBirdMenuController menu; // Represents a FlappyBirdMenuController object (to control menu operations)
     
-    private FlappyBirdGameController game;
+    private FlappyBirdGameController game; // Represents a FlappyBirdGameController object (to control gameplay operations)
 
-    private Bird birdModel;
+    private Bird birdModel; // Represents a Bird object (to place into the FlappyBirdGameController constructor)
     
     
     /**
-     * TODO
+     * The initialize method instantiates a FlappyBirdMenuController object and calls it's detectInput method
+     * to allow the program to listen to the user's menu inputs <br>
+     * The method also calls begins the game once the user indicates they'd like to do so with the relevant input
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		menu = new FlappyBirdMenuController(mapOneToggleBtn, mapTwoToggleBtn, mapThreeToggleBtn, 
                 birdOneToggleBtn, birdTwoToggleBtn, birdThreeToggleBtn, mapOne, mapTwo, mapThree, bird, bird, bird, menuScreen); // TODO replace the bird repeats with different images
         
-		menu.detectInput();
+		menu.detectInput(); // Listen and handle user menu interactions
 		
-		getGameStart();
+		menu.setOnGameStartSuccess(() -> playGame()); // Begin game once the user presses the relevant input
 	}
 	
 	
 	/**
-	 * TODO
-	 */
-	private void getGameStart() {
-		menu.setOnGameStartSuccess(() -> playGame());
-	}
-	
-	
-	/**
-	 * TODO
+	 * The playGame method hides the menu, shows the game-specific UI, instantiates the FlappyBirdGameController class, 
+	 * and calls the class's play method to begin the game
 	 */
 	private void playGame() {
 		menuScreen.setVisible(false);
@@ -142,14 +140,14 @@ public class AppController implements Initializable {
 		game = new FlappyBirdGameController(topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
 				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, menuScreen, mapOneToggleBtn, initializeBirdModel(), scoreCounter);
 		
-		game.play();
+		game.play(); // Start game
 	}
 	
 	
 	/**
-	 * TODO
+	 * The initializeBirdModel method instantiates a Bird object using the selected bird skin
 	 * 
-	 * @return
+	 * @return birdModel, a Bird object
 	 */
 	private Bird initializeBirdModel() {
 		birdModel = new Bird(menu.getBirdSkin(), birdHitBox);
