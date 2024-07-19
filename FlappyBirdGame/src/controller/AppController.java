@@ -12,6 +12,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Bird;
+import model.Tube;
 
 
 /**
@@ -112,6 +113,13 @@ public class AppController implements Initializable {
 
     private Bird birdModel; // Represents a Bird object (to place into the FlappyBirdGameController constructor)
     
+    private Tube topTubeOne;
+	private Tube topTubeTwo;
+	private Tube topTubeThree;
+	private Tube bottomTubeOne;
+	private Tube bottomTubeTwo;
+	private Tube bottomTubeThree;
+    
     
     /**
      * The initialize method instantiates a FlappyBirdMenuController object and calls it's detectInput method
@@ -120,8 +128,20 @@ public class AppController implements Initializable {
      */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		menu = new FlappyBirdMenuController(mapOneToggleBtn, mapTwoToggleBtn, mapThreeToggleBtn, 
-                birdOneToggleBtn, birdTwoToggleBtn, birdThreeToggleBtn, mapOne, mapTwo, mapThree, bird, bird, bird, menuScreen); // TODO replace the bird repeats with different images
+		menu = new FlappyBirdMenuController(
+				mapOneToggleBtn, 
+				mapTwoToggleBtn, 
+				mapThreeToggleBtn, 
+                birdOneToggleBtn, 
+                birdTwoToggleBtn, 
+                birdThreeToggleBtn, 
+                mapOne, 
+                mapTwo, 
+                mapThree, 
+                bird, 
+                bird, // TODO replace the bird repeats with different images
+                bird, // TODO replace the bird repeats with different images
+                menuScreen);
         
 		menu.detectInput(); // Listen and handle user menu interactions
 		
@@ -137,8 +157,17 @@ public class AppController implements Initializable {
 		menuScreen.setVisible(false);
 		scoreCounter.setVisible(true);
 		
-		game = new FlappyBirdGameController(topPipeOneHitBox, topPipeTwoHitBox, topPipeThreeHitBox, 
-				bottomPipeOneHitBox, bottomPipeTwoHitBox, bottomPipeThreeHitBox, gameScreen, menuScreen, mapOneToggleBtn, initializeBirdModel(), scoreCounter);
+		game = new FlappyBirdGameController(
+				gameScreen, 
+				menuScreen, 
+				mapOneToggleBtn, 
+				initializeBirdModel(), scoreCounter, 
+				initializeTubeModel(topTubeOne, topPipeOne, topPipeOneHitBox),
+				initializeTubeModel(topTubeTwo, topPipeTwo, topPipeTwoHitBox), 
+				initializeTubeModel(topTubeThree, topPipeThree, topPipeThreeHitBox), 
+				initializeTubeModel(bottomTubeOne, bottomPipeOne, bottomPipeOneHitBox), 
+				initializeTubeModel(bottomTubeTwo, bottomPipeTwo, bottomPipeTwoHitBox), 
+				initializeTubeModel(bottomTubeThree, bottomPipeThree, bottomPipeThreeHitBox));
 		
 		game.play(); // Start game
 	}
@@ -152,6 +181,12 @@ public class AppController implements Initializable {
 	private Bird initializeBirdModel() {
 		birdModel = new Bird(menu.getBirdSkin(), birdHitBox);
 		return birdModel;
+	}
+	
+	
+	private Tube initializeTubeModel(Tube tube, ImageView model, Rectangle hitBox) {
+		tube = new Tube(model, hitBox);
+		return tube;
 	}
 	
 }

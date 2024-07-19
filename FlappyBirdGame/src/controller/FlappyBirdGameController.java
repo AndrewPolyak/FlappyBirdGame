@@ -20,15 +20,14 @@ public class FlappyBirdGameController {
 
 	private AnimationTimer animate; // Represents the animation timer that will run and animate the game
 	
-	private Rectangle topTubeOneHitBox; // Represents the hit box of the first top tube
-	private Rectangle topTubeTwoHitBox; // Represents the hit box of the second top tube
-	private Rectangle topTubeThreeHitBox; // Represents the hit box of the third top tube
-	private Rectangle bottomTubeOneHitBox; // Represents the hit box of the first bottom tube
-	private Rectangle bottomTubeTwoHitBox; // Represents the hit box of the second bottom tube
-	private Rectangle bottomTubeThreeHitBox; // Represents the hit box of the third bottom tube
+	private Tube topTubeOne;
+	private Tube topTubeTwo;
+	private Tube topTubeThree;
+	private Tube bottomTubeOne;
+	private Tube bottomTubeTwo;
+	private Tube bottomTubeThree;
 	
 	private Bird bird; // Represents the bird model
-	private Tube tube; // Represents the tube model
 	
 	private AnchorPane gameScreen; // Represents the UI elements of the game (i.e., bird, tubes, score)
 	private AnchorPane menuScreen; // Represents the UI elements of the main menu (i.e., buttons, title card)
@@ -39,42 +38,50 @@ public class FlappyBirdGameController {
 	
 	private int TOP_WALL = 0; // Represents the y-coordinate of the top of the screen
 	private int BOTTOM_WALL = 650; // Represents the y-coordinate of the bottom of the screen
-	private static final int LEFT_WALL = 0; // Represents the x-coordinate of the left of the screen
+	private static final int LEFT_WALL = 0 - 80; // Represents the x-coordinate of the left of the screen (left wall - width of tube)
 	
 	private boolean rising = false; // Represents the current state of the bird rising (true if rising, false otherwise)
 	private double yCoordStart; // Represents the y-coordinate the bird starting it's rise at
 	
 	private double birdRotation = 0; // Represents the current bird rotation amount
 	
-	private static final int SCORE_COORDINATE = 500; // Represents the x-coordinate which a tube must reach to facilitate a score increase
-	
-	private boolean tubeOnePairScoreCounts; // This boolean remains true if the first pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
-	private boolean tubeTwoPairScoreCounts; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
-	private boolean tubeThreePairScoreCounts; // This boolean remains true if the third pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	private boolean tubeOnePairScoreCounts = true; // This boolean remains true if the first pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	private boolean tubeTwoPairScoreCounts = true; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
+	private boolean tubeThreePairScoreCounts = true; // This boolean remains true if the third pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 
+	private boolean tubeTwoPairMoving = false;
+	private boolean tubeThreePairMoving = false;
+	
+	private boolean initialSpawn = true;
+	
+	private static final double TUBES_MAX_DISTANCE_APART = 360;
+	
 	
 	// TODO JavaDoc
-	public FlappyBirdGameController(Rectangle topTubeOneHitBox, Rectangle topTubeTwoHitBox, Rectangle topTubeThreeHitBox, 
-			Rectangle bottomTubeOneHitBox, Rectangle bottomTubeTwoHitBox, Rectangle bottomTubeThreeHitBox, AnchorPane gameScreen, 
-			AnchorPane menuScreen, Button mapOneToggleBtn, Bird bird, Text scoreCounter) {
-		this.topTubeOneHitBox = topTubeOneHitBox;
-		this.topTubeTwoHitBox = topTubeTwoHitBox;
-		this.topTubeThreeHitBox = topTubeThreeHitBox;
-		this.bottomTubeOneHitBox = bottomTubeOneHitBox;
-		this.bottomTubeTwoHitBox = bottomTubeTwoHitBox;
-		this.bottomTubeThreeHitBox = bottomTubeThreeHitBox;
+	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane menuScreen, Button mapOneToggleBtn, Bird bird, Text scoreCounter, 
+			Tube topTubeOne, Tube topTubeTwo, Tube topTubeThree, Tube bottomTubeOne, Tube bottomTubeTwo, Tube bottomTubeThree) {
 		this.gameScreen = gameScreen;
 		this.menuScreen = menuScreen;
 		this.mapOneToggleBtn = mapOneToggleBtn;
 		this.bird = bird;
 		this.scoreCounter = scoreCounter;
+		this.topTubeOne = topTubeOne;
+		this.topTubeTwo = topTubeTwo;
+		this.topTubeThree = topTubeThree;
+		this.bottomTubeOne = bottomTubeOne;
+		this.bottomTubeTwo = bottomTubeTwo;
+		this.bottomTubeThree = bottomTubeThree;
 	}
+	
+	
 	
 	
 	/**
 	 * The play method sets up UI elements related to gameplay, gives an initial flap to the bird, and calls the AnimationTimer handler override method
 	 */
 	public void play() {
+		score = 0;
+		scoreCounter.setText(score + "");
 		scoreCounter.setVisible(true); // Display the score counter on the UI
 		
 		// Allow for an initial flap at game start
@@ -89,11 +96,16 @@ public class FlappyBirdGameController {
 			 */
 			@Override
 			public void handle(long arg0) {
-				moveBirdListener(); // Logic for player to control the bird
-				moveTubes(); // Logic to move the tubes from right-to-left
-				incrementScoreListener(); // Logic to check if the bird made it through a pair of tubes (to increment score)
-				respawnTubesListener(); // Logic to respawn tubes once they reach the left side of the screen (for game to run indefinitely)
-				endGameListener(); // Logic to end the game once the bird hits a tube, the floor, or the ceiling
+				if (initialSpawn) {
+					respawnTubes(true, true, true);
+					initialSpawn = false;
+				} else {
+					respawnTubes(false, false, false); // Logic to respawn tubes once they reach the left side of the screen (for game to run indefinitely)
+					moveBirdListener(); // Logic for player to control the bird
+					moveTubes(); // Logic to move the tubes from right-to-left
+					incrementScoreListener(); // Logic to check if the bird made it through a pair of tubes (to increment score)
+					endGameListener(); // Logic to end the game once the bird hits a tube, the floor, or the ceiling
+				}
 			}
 		};
 		animate.start(); // Start game
@@ -158,26 +170,66 @@ public class FlappyBirdGameController {
 	 * TODO
 	 */
 	private void moveTubes() {
-		// TODO
+		
+		topTubeOne.move();
+		bottomTubeOne.move();
+		
+		if (tubeTwoPairMoving) {
+			topTubeTwo.move();
+			bottomTubeTwo.move();
+		}
+		
+		if (tubeThreePairMoving) {
+			topTubeThree.move();
+			bottomTubeThree.move();
+		}
+		
+		
+		if (topTubeTwo.getxCoord() - topTubeOne.getxCoord() >= TUBES_MAX_DISTANCE_APART) {
+			tubeTwoPairMoving = true;
+		}
+		
+		if (topTubeThree.getxCoord() - topTubeTwo.getxCoord() >= TUBES_MAX_DISTANCE_APART) {
+			tubeThreePairMoving = true;
+		}
+		
+		
+		if (tubesAtScreenEnd(topTubeOne)) {
+			respawnTubes(true, false, false);
+		} else if (tubesAtScreenEnd(topTubeTwo)) {
+			respawnTubes(false, true, false);
+		} else if (tubesAtScreenEnd(topTubeThree)) {
+			respawnTubes(false, false, true);
+		}
+			
+		
+		
+		
+		
+		
 	}
 	
 	
 	/**
 	 * TODO
 	 */
-	private void respawnTubesListener() {
-		if (tubesAtScreenEnd(bottomTubeOneHitBox, topTubeOneHitBox)) { // If the first pair of tubes have reached the edge of the screen...
-			// TODO spawn pair of tubes
+	private void respawnTubes(boolean respawnOne, boolean respawnTwo, boolean respawnThree) {
+		if (respawnOne) { 
+			topTubeOne.spawn(true);
+			bottomTubeOne.spawn(false);
 			tubeOnePairScoreCounts = true;
-			
-		} else if (tubesAtScreenEnd(bottomTubeTwoHitBox, topTubeTwoHitBox)) {
-			// TODO spawn pair of tubes
+		}
+		
+		if (respawnTwo) {
+			topTubeTwo.spawn(true);
+			bottomTubeTwo.spawn(false);
 			tubeTwoPairScoreCounts = true;
-			
-		} else if ((tubesAtScreenEnd(bottomTubeThreeHitBox, topTubeThreeHitBox))) {
-			// TODO spawn pair of tubes
+		}
+		
+		if (respawnThree) {
+			topTubeThree.spawn(true);
+			bottomTubeThree.spawn(false);
 			tubeThreePairScoreCounts = true;
-			
 		}
 	}
 	
@@ -188,30 +240,34 @@ public class FlappyBirdGameController {
 	 * @param topTube
 	 * @return
 	 */
-	private boolean tubesAtScreenEnd(Rectangle bottomTube, Rectangle topTube) {
-		return bottomTube.getLayoutX() <= LEFT_WALL && topTube.getLayoutX() <= LEFT_WALL;
+	private boolean tubesAtScreenEnd(Tube topTube) {
+		return topTube.getxCoord() <= LEFT_WALL;
 	}
 	
 	
 	/**
-	 * The incrementScoreListener method adds +1 to the score if the bird successfully passed through a pair of tubes
+	 * The incrementScoreListener method adds +1 to the score if the bird successfully passed through a pair of tubes 
 	 */
 	private void incrementScoreListener() {
-		if (tubesPassedBird(bottomTubeOneHitBox, topTubeOneHitBox)) { // The bird passes through the first pair of tubes
+		if (tubesPassedBird(topTubeOne)) { // The bird passes through the first pair of tubes
 			if (tubeOnePairScoreCounts) { // If the score has not already been added...
 				score++;
 				scoreCounter.setText(score + "");
 				tubeOnePairScoreCounts = false; // Set to false to prevent score from constantly repeating (due to how logic works) before the tube resets
 			}
 			
-		} else if (tubesPassedBird(bottomTubeTwoHitBox, topTubeTwoHitBox)) { // The bird passes through the second pair of tubes
+		}
+		
+		if (tubesPassedBird(topTubeTwo)) { // The bird passes through the second pair of tubes
 			if (tubeTwoPairScoreCounts) { // If the score has not already been added...
 				score++;
 				scoreCounter.setText(score + "");
 				tubeTwoPairScoreCounts = false; // Set to false to prevent score from constantly repeating (due to how logic works) before the tube resets
 			}
 			
-		} else if (tubesPassedBird(bottomTubeThreeHitBox, topTubeThreeHitBox)) { // The bird passes through the third pair of tubes
+		}
+		
+		if (tubesPassedBird(topTubeThree)) { // The bird passes through the third pair of tubes
 			if (tubeThreePairScoreCounts) { // If the score has not already been added...
 				score++;
 				scoreCounter.setText(score + "");
@@ -228,8 +284,8 @@ public class FlappyBirdGameController {
 	 * @param topTube
 	 * @return true if the tubes successfully passed by the bird, false otherwise
 	 */
-	private boolean tubesPassedBird(Rectangle bottomTube, Rectangle topTube) {
-		return bottomTube.getLayoutX() <= SCORE_COORDINATE && topTube.getLayoutX() <= SCORE_COORDINATE;
+	private boolean tubesPassedBird(Tube topTube) {
+		return topTube.getxCoord() <= bird.getxCoord() - topTube.getHitBox().getWidth();
 	}
 	
 	
@@ -239,6 +295,7 @@ public class FlappyBirdGameController {
 	private void endGameListener() {
 		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
 			bird.spawn(); // Reset bird
+			respawnTubes(true, true, true);
 			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
 			scoreCounter.setVisible(false); // Hide score counter
 			menuScreen.setVisible(true); // Show main menu
@@ -264,17 +321,17 @@ public class FlappyBirdGameController {
 	 * @return true if the bird collided with a tube, false otherwise
 	 */
 	private boolean birdTouchingTube() {
-		if (bird.hitTube(bottomTubeOneHitBox)) {
+		if (bird.hitTube(bottomTubeOne.getHitBox())) {
 			return true;
-		} else if (bird.hitTube(bottomTubeTwoHitBox)) {
+		} else if (bird.hitTube(bottomTubeTwo.getHitBox())) {
 			return true;
-		} else if (bird.hitTube(bottomTubeThreeHitBox)) {
+		} else if (bird.hitTube(bottomTubeThree.getHitBox())) {
 			return true;
-		} else if (bird.hitTube(topTubeOneHitBox)) {
+		} else if (bird.hitTube(topTubeOne.getHitBox())) {
 			return true;
-		} else if (bird.hitTube(topTubeTwoHitBox)) {
+		} else if (bird.hitTube(topTubeTwo.getHitBox())) {
 			return true;
-		} else if (bird.hitTube(topTubeThreeHitBox)) {
+		} else if (bird.hitTube(topTubeThree.getHitBox())) {
 			return true;
 		} else { // If the bird did not hit a tube, return false
 			return false;

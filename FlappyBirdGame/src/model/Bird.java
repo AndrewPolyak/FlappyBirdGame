@@ -14,11 +14,11 @@ import javafx.scene.shape.Rectangle;
 public class Bird {
 
 	private static final double RISE_VELOCITY = 12; // Represents the vertical velocity caused by the bird's flap
-	private static final int MAX_RISE = 135; // Represents the vertical distance the bird's flap will cover
+	private static final int MAX_RISE = 120; // Represents the vertical distance the bird's flap will cover
 	
 	private static final double MIN_FALL_VELOCITY = 5; // Represents the bird's minimum (and starting) falling velocity
 	private static final double MAX_FALL_VELOCITY = 12; // Represents the bird's maximum vertical falling velocity
-	private static final double GRAVITY = 0.2; // Represents the gravity which will accumulate on the falling velocity
+	private static final double GRAVITY = 0.3; // Represents the gravity which will accumulate on the falling velocity
 	
 	private static final int X_SPAWN = 500; // Represents the default x-coordinate position for the bird's spawn
 	private static final int Y_SPAWN = 325; // Represents the default y-coordinate position for the bird's spawn
