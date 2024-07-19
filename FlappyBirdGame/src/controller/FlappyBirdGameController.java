@@ -1,5 +1,7 @@
 package controller;
 
+import java.security.SecureRandom;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -14,7 +16,7 @@ import model.Tube;
  * The FlappyBirdGameController class contains the logic for starting, running, and ending the gameplay of Flappy Bird
  * 
  * @author Andrew Polyak
- * @version July 13, 2024
+ * @version July 19, 2024
  */
 public class FlappyBirdGameController {
 
@@ -38,7 +40,7 @@ public class FlappyBirdGameController {
 	
 	private int TOP_WALL = 0; // Represents the y-coordinate of the top of the screen
 	private int BOTTOM_WALL = 650; // Represents the y-coordinate of the bottom of the screen
-	private static final int LEFT_WALL = 0 - 80; // Represents the x-coordinate of the left of the screen (left wall - width of tube)
+	private static final int LEFT_WALL = 0 - 100; // Represents the x-coordinate of the left of the screen (left wall - width of tube)
 	
 	private boolean rising = false; // Represents the current state of the bird rising (true if rising, false otherwise)
 	private double yCoordStart; // Represents the y-coordinate the bird starting it's rise at
@@ -56,6 +58,8 @@ public class FlappyBirdGameController {
 	
 	private static final double TUBES_MAX_DISTANCE_APART = 360;
 	
+	private SecureRandom random;
+	
 	
 	// TODO JavaDoc
 	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane menuScreen, Button mapOneToggleBtn, Bird bird, Text scoreCounter, 
@@ -71,6 +75,7 @@ public class FlappyBirdGameController {
 		this.bottomTubeOne = bottomTubeOne;
 		this.bottomTubeTwo = bottomTubeTwo;
 		this.bottomTubeThree = bottomTubeThree;
+		random = new SecureRandom();
 	}
 	
 	
@@ -170,7 +175,6 @@ public class FlappyBirdGameController {
 	 * TODO
 	 */
 	private void moveTubes() {
-		
 		topTubeOne.move();
 		bottomTubeOne.move();
 		
@@ -184,7 +188,6 @@ public class FlappyBirdGameController {
 			bottomTubeThree.move();
 		}
 		
-		
 		if (topTubeTwo.getxCoord() - topTubeOne.getxCoord() >= TUBES_MAX_DISTANCE_APART) {
 			tubeTwoPairMoving = true;
 		}
@@ -193,7 +196,6 @@ public class FlappyBirdGameController {
 			tubeThreePairMoving = true;
 		}
 		
-		
 		if (tubesAtScreenEnd(topTubeOne)) {
 			respawnTubes(true, false, false);
 		} else if (tubesAtScreenEnd(topTubeTwo)) {
@@ -201,12 +203,6 @@ public class FlappyBirdGameController {
 		} else if (tubesAtScreenEnd(topTubeThree)) {
 			respawnTubes(false, false, true);
 		}
-			
-		
-		
-		
-		
-		
 	}
 	
 	
@@ -215,21 +211,41 @@ public class FlappyBirdGameController {
 	 */
 	private void respawnTubes(boolean respawnOne, boolean respawnTwo, boolean respawnThree) {
 		if (respawnOne) { 
-			topTubeOne.spawn(true);
-			bottomTubeOne.spawn(false);
+			setTubeHeight(topTubeOne, bottomTubeOne, random.nextInt(3));
+			topTubeOne.spawn();
+			bottomTubeOne.spawn();
 			tubeOnePairScoreCounts = true;
 		}
 		
 		if (respawnTwo) {
-			topTubeTwo.spawn(true);
-			bottomTubeTwo.spawn(false);
+			setTubeHeight(topTubeTwo, bottomTubeTwo, random.nextInt(3));
+			topTubeTwo.spawn();
+			bottomTubeTwo.spawn();
 			tubeTwoPairScoreCounts = true;
 		}
 		
 		if (respawnThree) {
-			topTubeThree.spawn(true);
-			bottomTubeThree.spawn(false);
+			setTubeHeight(topTubeThree, bottomTubeThree, random.nextInt(3));
+			topTubeThree.spawn();
+			bottomTubeThree.spawn();
 			tubeThreePairScoreCounts = true;
+		}
+	}
+	
+	
+	private void setTubeHeight(Tube topTube, Tube bottomTube, int modifier) {
+		if (modifier == 0) { // Top and bottom pipe height is equal
+			topTube.spawnRegularTube(true);
+			bottomTube.spawnRegularTube(false);
+			
+		} else if (modifier == 1) { // Top pipe is tall; Bottom pipe is short
+			topTube.spawnTallTube(true);
+			bottomTube.spawnShortTube(false); // FIXME
+			
+		} else if (modifier == 2){ // Top pipe is short; Bottom pipe is tall
+			topTube.spawnShortTube(true);
+			bottomTube.spawnTallTube(false); // FIXME
+			
 		}
 	}
 	

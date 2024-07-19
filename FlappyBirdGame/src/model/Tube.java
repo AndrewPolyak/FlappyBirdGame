@@ -7,13 +7,11 @@ import javafx.scene.shape.Rectangle;
  * The Tube class contains the unique properties and methods related to tubes
  * 
  * @author Andrew Polyak
- * @version July 5, 2024
+ * @version July 19, 2024
  */
 public class Tube {
 	
 	private static final int X_SPAWN = 1000; // Represents the x-coordinate the tube will spawn on
-	private static final int Y_TOP_SPAWN = 0; // Represents the y-coordinate the top-tube will spawn on
-	private static final int Y_BOTTOM_SPAWN = 465; // Represents the y-coordinate the bottom-tube will spawn on
 	
 	private static final double X_VELOCITY = 2; // Represents the horizontal velocity of the tube from right-to-left
 	
@@ -21,6 +19,14 @@ public class Tube {
 	
 	private ImageView tube; // Represents the tube sprite
 	private Rectangle tubeHitBox; // Represents the tube hit box
+	
+	private static final int SHORT_PIPE_TOP_Y_SPAWN = -210; // TODO
+	private static final int TALL_PIPE_TOP_Y_SPAWN = 0; // TODO
+	private static final int REGULAR_PIPE_TOP_Y_SPAWN = -110; // TODO
+	
+	private static final int SHORT_PIPE_BOTTOM_Y_SPAWN = 555; // TODO
+	private static final int TALL_PIPE_BOTTOM_Y_SPAWN = 355; // TODO
+	private static final int REGULAR_PIPE_BOTTOM_Y_SPAWN = 455; // TODO
 	
 
 	/**
@@ -51,13 +57,53 @@ public class Tube {
 	/**
 	 * The spawn method spawns the tube on the right side of the screen and either on the top or bottom of the screen depending on topTube's boolean value
 	 */
-	public void spawn(boolean topTube) {
-		if (topTube) { // If tube is meant to spawn on the top...
-			tubeHitBox.setLayoutY(Y_TOP_SPAWN); // Spawn tube on top of screen
-		} else {
-			tubeHitBox.setLayoutY(Y_BOTTOM_SPAWN); // Spawn tube on bottom of screen
-		}
+	public void spawn() {
 		tubeHitBox.setLayoutX(X_SPAWN); // Spawn the tube on the right of the screen
+		syncHitBox();
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param topTube
+	 */
+	public void spawnRegularTube(boolean topTube) {
+		if (topTube) {
+			tubeHitBox.setLayoutY(REGULAR_PIPE_TOP_Y_SPAWN);
+		} else {
+			tubeHitBox.setLayoutY(REGULAR_PIPE_BOTTOM_Y_SPAWN);
+		}
+		syncHitBox();
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param topTube
+	 */
+	public void spawnTallTube(boolean topTube) {
+		if (topTube) {
+			tubeHitBox.setLayoutY(TALL_PIPE_TOP_Y_SPAWN);
+		} else {
+			tubeHitBox.setLayoutY(TALL_PIPE_BOTTOM_Y_SPAWN);
+		}
+		syncHitBox();
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param topTube
+	 */
+	public void spawnShortTube(boolean topTube) {
+		if (topTube) {
+			tubeHitBox.setLayoutY(SHORT_PIPE_TOP_Y_SPAWN);
+		} else {
+			tubeHitBox.setLayoutY(SHORT_PIPE_BOTTOM_Y_SPAWN);
+		}
 		syncHitBox();
 	}
 	
@@ -69,12 +115,12 @@ public class Tube {
 		tube.setLayoutY(tubeHitBox.getLayoutY());
 		tube.setLayoutX(tubeHitBox.getLayoutX());
 	}
-
+	
 
 	/**
-	 * The getHeight method accesses the tube's height value
+	 * TODO
 	 * 
-	 * @return height
+	 * @return
 	 */
 	public double getHeight() {
 		return height;
@@ -82,18 +128,22 @@ public class Tube {
 
 
 	/**
-	 * The setHeight method assigns a value to height
+	 * TODO
 	 * 
-	 * @param height
+	 * @return
 	 */
-	public void setHeight(double height) {
-		this.height = height;
+	public double getxCoord() {
+		return tubeHitBox.getLayoutX();
 	}
 	
 	
-	
-	public double getxCoord() {
-		return tubeHitBox.getLayoutX();
+	/**
+	 * TODO
+	 * 
+	 * @param yCoord
+	 */
+	public void setyCoord(double yCoord) {
+		tubeHitBox.setLayoutY(yCoord);
 	}
 	
 	
@@ -105,6 +155,11 @@ public class Tube {
 	}
 	
 	
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public Rectangle getHitBox() {
 		return tubeHitBox;
 	}

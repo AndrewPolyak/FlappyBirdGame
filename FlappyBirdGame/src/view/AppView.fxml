@@ -52,43 +52,43 @@
                               <Image url="@../../game_assets/blue_bird.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="bottomPipeOne" fitHeight="200.0" fitWidth="100.0" layoutX="705.0" layoutY="465.0" pickOnBounds="true">
+                        <ImageView fx:id="bottomPipeOne" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="455.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/bottom_pipe.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="bottomPipeTwo" fitHeight="200.0" fitWidth="100.0" layoutX="786.0" layoutY="465.0" pickOnBounds="true">
+                        <ImageView fx:id="bottomPipeTwo" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="455.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/bottom_pipe.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="bottomPipeThree" fitHeight="200.0" fitWidth="100.0" layoutX="867.0" layoutY="465.0" pickOnBounds="true">
+                        <ImageView fx:id="bottomPipeThree" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="455.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/bottom_pipe.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="topPipeOne" fitHeight="200.0" fitWidth="100.0" layoutX="705.0" pickOnBounds="true">
+                        <ImageView fx:id="topPipeOne" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="-110.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/top_pipe.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="topPipeTwo" fitHeight="200.0" fitWidth="100.0" layoutX="786.0" pickOnBounds="true">
+                        <ImageView fx:id="topPipeTwo" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="-110.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/top_pipe.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="topPipeThree" fitHeight="200.0" fitWidth="100.0" layoutX="867.0" pickOnBounds="true">
+                        <ImageView fx:id="topPipeThree" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="-110.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../game_assets/top_pipe.png" />
                            </image>
                         </ImageView>
-                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="502.0" layoutY="328.0" radius="33.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
-                        <Rectangle fx:id="topPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="705.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <Rectangle fx:id="topPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="786.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <Rectangle fx:id="topPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="867.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <Rectangle fx:id="bottomPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="705.0" layoutY="465.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <Rectangle fx:id="bottomPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="786.0" layoutY="465.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <Rectangle fx:id="bottomPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="200.0" layoutX="867.0" layoutY="465.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="502.0" layoutY="328.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Rectangle fx:id="topPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Rectangle fx:id="topPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Rectangle fx:id="topPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Rectangle fx:id="bottomPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Rectangle fx:id="bottomPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <Rectangle fx:id="bottomPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                      </children>
                   </AnchorPane>
                   <Text fx:id="scoreCounter" fill="WHITE" layoutX="381.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="238.13671875">
