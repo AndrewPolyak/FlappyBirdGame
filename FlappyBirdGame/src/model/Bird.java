@@ -20,7 +20,7 @@ public class Bird {
 	private static final double MAX_FALL_VELOCITY = 12; // Represents the bird's maximum vertical falling velocity
 	private static final double GRAVITY = 0.3; // Represents the gravity which will accumulate on the falling velocity
 	
-	private static final int X_SPAWN = 497; // Represents the default x-coordinate position for the bird's spawn
+	private static final int X_SPAWN = 494; // Represents the default x-coordinate position for the bird's spawn
 	private static final int Y_SPAWN = 324; // Represents the default y-coordinate position for the bird's spawn
 	
 	private static final int X_HIT_BOX_SYNC = 11; // Represents the x-coordinate offset between the bird sprite and bird hit box

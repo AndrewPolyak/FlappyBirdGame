@@ -6,6 +6,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.Text;
 import model.Bird;
 import model.Tube;
@@ -15,7 +16,7 @@ import model.Tube;
  * The FlappyBirdGameController class contains the logic for starting, running, and ending the gameplay of Flappy Bird
  * 
  * @author Andrew Polyak
- * @version July 20, 2024
+ * @version July 21, 2024
  */
 public class FlappyBirdGameController {
 
@@ -58,6 +59,9 @@ public class FlappyBirdGameController {
 	
 	private SecureRandom random; // Represents a random number generator
 	
+	private AudioClip gameOverSound; // TODO
+	private AudioClip scoreAddition; // TODO
+	
 	
 	// TODO doc
 	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane postGameScreen, Bird bird, Text scoreCounter, 
@@ -73,6 +77,8 @@ public class FlappyBirdGameController {
 		this.bottomTubeTwo = bottomTubeTwo;
 		this.bottomTubeThree = bottomTubeThree;
 		random = new SecureRandom();
+		gameOverSound = new AudioClip(getClass().getResource("/game_assets/game_over.mp3").toExternalForm());
+		scoreAddition = new AudioClip(getClass().getResource("/game_assets/score_addition.mp3").toExternalForm());
 	}
 	
 	
@@ -282,6 +288,7 @@ public class FlappyBirdGameController {
 	private void incrementScoreListener() {
 		if (tubesPassedBird(topTubeOne)) { // The bird passes through the first pair of tubes
 			if (tubeOnePairScoreCounts) { // If the score has not already been added...
+				scoreAddition.play();
 				score++;
 				scoreCounter.setText(score + "");
 				tubeOnePairScoreCounts = false; // Set to false to prevent score from constantly repeating (due to how logic works) before the tube resets
@@ -291,6 +298,7 @@ public class FlappyBirdGameController {
 		
 		if (tubesPassedBird(topTubeTwo)) { // The bird passes through the second pair of tubes
 			if (tubeTwoPairScoreCounts) { // If the score has not already been added...
+				scoreAddition.play();
 				score++;
 				scoreCounter.setText(score + "");
 				tubeTwoPairScoreCounts = false; // Set to false to prevent score from constantly repeating (due to how logic works) before the tube resets
@@ -300,6 +308,7 @@ public class FlappyBirdGameController {
 		
 		if (tubesPassedBird(topTubeThree)) { // The bird passes through the third pair of tubes
 			if (tubeThreePairScoreCounts) { // If the score has not already been added...
+				scoreAddition.play();
 				score++;
 				scoreCounter.setText(score + "");
 				tubeThreePairScoreCounts = false; // Set to false to prevent score from constantly repeating (due to how logic works) before the tube resets
@@ -325,6 +334,7 @@ public class FlappyBirdGameController {
 	 */
 	private void endGameListener() {
 		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
+			gameOverSound.play();
 			bird.spawn(); // Reset bird
 			respawnTubes(true, true, true);
 			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)

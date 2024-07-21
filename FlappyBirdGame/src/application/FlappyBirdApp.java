@@ -11,7 +11,7 @@ import javafx.fxml.FXMLLoader;
  * The FlappyBirdApp class initializes the application's user interface and logic
  * 
  * @author Andrew Polyak
- * @version June 28, 2024
+ * @version July 21, 2024
  */
 public class FlappyBirdApp extends Application {
 	
@@ -24,7 +24,7 @@ public class FlappyBirdApp extends Application {
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("/view/AppView.fxml")); // Set root as AppView
 			Scene scene = new Scene(root,1000,650); // Create new scene
-			// primaryStage.setMaximized(true);
+			primaryStage.setTitle("Flappy Bird");
 			primaryStage.setScene(scene); // Set stage with scene
 			primaryStage.show(); // Show stage
 		} catch(Exception e) {

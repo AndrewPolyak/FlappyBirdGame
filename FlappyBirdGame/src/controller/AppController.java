@@ -165,8 +165,7 @@ public class AppController implements Initializable {
 	 * 1: Add data loading & saving to update and display your high score
 	 * 2: Add end-of-game screen that displays the score achieved & your high score
 	 * 3: Add a button that allows you to reset your high score to 0
-	 * 4: Add sound effects & music
-	 * 5: Complete documentation; Generate JavaDoc
+	 * 4: Complete documentation; Generate JavaDoc
 	 */
 	
     
