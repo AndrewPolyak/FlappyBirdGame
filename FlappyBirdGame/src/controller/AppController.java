@@ -19,21 +19,45 @@ import model.Tube;
  * The AppController class contains the logic to coordinate the menu and gameplay of the application
  * 
  * @author Andrew Polyak
- * @version July 18, 2024
+ * @version July 20, 2024
  */
 public class AppController implements Initializable {
 	
 	@FXML
-    private ImageView bird;
+    private ImageView birdFive;
+
+    @FXML
+    private Button birdFiveToggleBtn;
+
+    @FXML
+    private ImageView birdFour;
+
+    @FXML
+    private Button birdFourToggleBtn;
 
     @FXML
     private Circle birdHitBox;
 
     @FXML
+    private ImageView birdOne;
+
+    @FXML
     private Button birdOneToggleBtn;
 
     @FXML
+    private ImageView birdSix;
+
+    @FXML
+    private Button birdSixToggleBtn;
+
+    @FXML
+    private ImageView birdThree;
+
+    @FXML
     private Button birdThreeToggleBtn;
+
+    @FXML
+    private ImageView birdTwo;
 
     @FXML
     private Button birdTwoToggleBtn;
@@ -55,6 +79,15 @@ public class AppController implements Initializable {
 
     @FXML
     private Rectangle bottomPipeTwoHitBox;
+
+    @FXML
+    private Text gameEndHighScoreCounter;
+
+    @FXML
+    private Text gameEndLastScoreCounter;
+
+    @FXML
+    private AnchorPane gameEndView;
 
     @FXML
     private AnchorPane gameModelScreen;
@@ -87,6 +120,9 @@ public class AppController implements Initializable {
     private AnchorPane menuScreen;
 
     @FXML
+    private Button resetStatsBtn;
+
+    @FXML
     private Text scoreCounter;
 
     @FXML
@@ -110,16 +146,29 @@ public class AppController implements Initializable {
     private FlappyBirdMenuController menu; // Represents a FlappyBirdMenuController object (to control menu operations)
     
     private FlappyBirdGameController game; // Represents a FlappyBirdGameController object (to control gameplay operations)
+    
+    private FlappyBirdPostGameMenuController postGameMenu; // TODO
 
     private Bird birdModel; // Represents a Bird object (to place into the FlappyBirdGameController constructor)
     
-    private Tube topTubeOne;
-	private Tube topTubeTwo;
-	private Tube topTubeThree;
-	private Tube bottomTubeOne;
-	private Tube bottomTubeTwo;
-	private Tube bottomTubeThree;
+    private Tube topTubeOne; // TODO doc
+	private Tube topTubeTwo; // TODO doc
+	private Tube topTubeThree; // TODO doc
+	private Tube bottomTubeOne; // TODO doc
+	private Tube bottomTubeTwo; // TODO doc
+	private Tube bottomTubeThree; // TODO doc
     
+	
+	/*
+	 * TODO LIST
+	 * 
+	 * 1: Add data loading & saving to update and display your high score
+	 * 2: Add end-of-game screen that displays the score achieved & your high score
+	 * 3: Add a button that allows you to reset your high score to 0
+	 * 4: Add sound effects & music
+	 * 5: Complete documentation; Generate JavaDoc
+	 */
+	
     
     /**
      * The initialize method instantiates a FlappyBirdMenuController object and calls it's detectInput method
@@ -135,17 +184,27 @@ public class AppController implements Initializable {
                 birdOneToggleBtn, 
                 birdTwoToggleBtn, 
                 birdThreeToggleBtn, 
+                birdFourToggleBtn, 
+                birdFiveToggleBtn, 
+                birdSixToggleBtn, 
+                resetStatsBtn, 
                 mapOne, 
                 mapTwo, 
                 mapThree, 
-                bird, 
-                bird, // TODO replace the bird repeats with different images
-                bird, // TODO replace the bird repeats with different images
+                birdOne, 
+                birdTwo,
+                birdThree,
+                birdFour,
+                birdFive,
+                birdSix,
                 menuScreen);
         
 		menu.detectInput(); // Listen and handle user menu interactions
-		
 		menu.setOnGameStartSuccess(() -> playGame()); // Begin game once the user presses the relevant input
+		
+		postGameMenu = new FlappyBirdPostGameMenuController(gameEndView, menuScreen);
+		
+		postGameMenu.detectInput();
 	}
 	
 	
@@ -159,8 +218,7 @@ public class AppController implements Initializable {
 		
 		game = new FlappyBirdGameController(
 				gameScreen, 
-				menuScreen, 
-				mapOneToggleBtn, 
+				gameEndView,  
 				initializeBirdModel(), scoreCounter, 
 				initializeTubeModel(topTubeOne, topPipeOne, topPipeOneHitBox),
 				initializeTubeModel(topTubeTwo, topPipeTwo, topPipeTwoHitBox), 
@@ -184,6 +242,14 @@ public class AppController implements Initializable {
 	}
 	
 	
+	/**
+	 * TODO
+	 * 
+	 * @param tube
+	 * @param model
+	 * @param hitBox
+	 * @return
+	 */
 	private Tube initializeTubeModel(Tube tube, ImageView model, Rectangle hitBox) {
 		tube = new Tube(model, hitBox);
 		return tube;

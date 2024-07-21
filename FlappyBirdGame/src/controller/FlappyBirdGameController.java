@@ -6,7 +6,6 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import model.Bird;
 import model.Tube;
@@ -16,31 +15,30 @@ import model.Tube;
  * The FlappyBirdGameController class contains the logic for starting, running, and ending the gameplay of Flappy Bird
  * 
  * @author Andrew Polyak
- * @version July 19, 2024
+ * @version July 20, 2024
  */
 public class FlappyBirdGameController {
 
 	private AnimationTimer animate; // Represents the animation timer that will run and animate the game
 	
-	private Tube topTubeOne;
-	private Tube topTubeTwo;
-	private Tube topTubeThree;
-	private Tube bottomTubeOne;
-	private Tube bottomTubeTwo;
-	private Tube bottomTubeThree;
+	private Tube topTubeOne; // Represents the first top tube
+	private Tube topTubeTwo; // Represents the second top tube
+	private Tube topTubeThree; // Represents the third top tube
+	private Tube bottomTubeOne; // Represents the first bottom tube
+	private Tube bottomTubeTwo; // Represents the second bottom tube
+	private Tube bottomTubeThree; // Represents the third bottom tube
 	
 	private Bird bird; // Represents the bird model
 	
 	private AnchorPane gameScreen; // Represents the UI elements of the game (i.e., bird, tubes, score)
-	private AnchorPane menuScreen; // Represents the UI elements of the main menu (i.e., buttons, title card)
-	private Button mapOneToggleBtn; // Represents the map one toggle button on the main menu (it is here because it needs to have focus placed back onto it after the game)
+	private AnchorPane postGameScreen; // TODO
 	
 	private Text scoreCounter; // Represents the score counter UI element
 	private int score; // Represents the current score
 	
 	private int TOP_WALL = 0; // Represents the y-coordinate of the top of the screen
 	private int BOTTOM_WALL = 650; // Represents the y-coordinate of the bottom of the screen
-	private static final int LEFT_WALL = 0 - 100; // Represents the x-coordinate of the left of the screen (left wall - width of tube)
+	private static final int LEFT_WALL = -100; // Represents the x-coordinate of the left of the screen (left wall - width of tube)
 	
 	private boolean rising = false; // Represents the current state of the bird rising (true if rising, false otherwise)
 	private double yCoordStart; // Represents the y-coordinate the bird starting it's rise at
@@ -51,22 +49,21 @@ public class FlappyBirdGameController {
 	private boolean tubeTwoPairScoreCounts = true; // This boolean remains true if the second pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 	private boolean tubeThreePairScoreCounts = true; // This boolean remains true if the third pair of tubes have not been passed through by the bird, and become false when the bird passes through them... This is to ensure only one point is added to the score counter
 
-	private boolean tubeTwoPairMoving = false;
-	private boolean tubeThreePairMoving = false;
+	private boolean tubeTwoPairMoving = false; // Represents whether the second tube pair is moving (true) or not (false) (starts as false)
+	private boolean tubeThreePairMoving = false; // Represents whether the third tube pair is moving (true) or not (false) (starts as false)
 	
-	private boolean initialSpawn = true;
+	private boolean initialSpawn = true; // Represents whether the tubes are spawning for the first time in the game (true) or not (false)
 	
-	private static final double TUBES_MAX_DISTANCE_APART = 360;
+	private static final double TUBES_MAX_DISTANCE_APART = 360; // Represents the maximum distance between any pair of tubes - they must remain at this distance from each other
 	
-	private SecureRandom random;
+	private SecureRandom random; // Represents a random number generator
 	
 	
-	// TODO JavaDoc
-	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane menuScreen, Button mapOneToggleBtn, Bird bird, Text scoreCounter, 
+	// TODO doc
+	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane postGameScreen, Bird bird, Text scoreCounter, 
 			Tube topTubeOne, Tube topTubeTwo, Tube topTubeThree, Tube bottomTubeOne, Tube bottomTubeTwo, Tube bottomTubeThree) {
 		this.gameScreen = gameScreen;
-		this.menuScreen = menuScreen;
-		this.mapOneToggleBtn = mapOneToggleBtn;
+		this.postGameScreen = postGameScreen;
 		this.bird = bird;
 		this.scoreCounter = scoreCounter;
 		this.topTubeOne = topTubeOne;
@@ -77,8 +74,6 @@ public class FlappyBirdGameController {
 		this.bottomTubeThree = bottomTubeThree;
 		random = new SecureRandom();
 	}
-	
-	
 	
 	
 	/**
@@ -188,11 +183,11 @@ public class FlappyBirdGameController {
 			bottomTubeThree.move();
 		}
 		
-		if (topTubeTwo.getxCoord() - topTubeOne.getxCoord() >= TUBES_MAX_DISTANCE_APART) {
+		if (tubesMaxDistanceApart(topTubeTwo, topTubeOne)) {
 			tubeTwoPairMoving = true;
 		}
 		
-		if (topTubeThree.getxCoord() - topTubeTwo.getxCoord() >= TUBES_MAX_DISTANCE_APART) {
+		if (tubesMaxDistanceApart(topTubeThree, topTubeTwo)) {
 			tubeThreePairMoving = true;
 		}
 		
@@ -203,6 +198,18 @@ public class FlappyBirdGameController {
 		} else if (tubesAtScreenEnd(topTubeThree)) {
 			respawnTubes(false, false, true);
 		}
+	}
+	
+	
+	/**
+	 * TODO
+	 * 
+	 * @param delayedTube
+	 * @param movingTube
+	 * @return
+	 */
+	private boolean tubesMaxDistanceApart(Tube delayedTube, Tube movingTube) {
+		return delayedTube.getxCoord() - movingTube.getxCoord() >= TUBES_MAX_DISTANCE_APART;
 	}
 	
 	
@@ -233,6 +240,13 @@ public class FlappyBirdGameController {
 	}
 	
 	
+	/**
+	 * TODO
+	 * 
+	 * @param topTube
+	 * @param bottomTube
+	 * @param modifier
+	 */
 	private void setTubeHeight(Tube topTube, Tube bottomTube, int modifier) {
 		if (modifier == 0) { // Top and bottom pipe height is equal
 			topTube.spawnRegularTube(true);
@@ -252,6 +266,7 @@ public class FlappyBirdGameController {
 	
 	/**
 	 * TODO
+	 * 
 	 * @param bottomTube
 	 * @param topTube
 	 * @return
@@ -314,8 +329,8 @@ public class FlappyBirdGameController {
 			respawnTubes(true, true, true);
 			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
 			scoreCounter.setVisible(false); // Hide score counter
-			menuScreen.setVisible(true); // Show main menu
-			mapOneToggleBtn.requestFocus(); // Set focus to a button on the main menu to allow for the user to easily start another game (because the space bar listener exists on a button node)
+			postGameScreen.setVisible(true);
+			postGameScreen.requestFocus();
 		} 
 	}
 	

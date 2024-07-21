@@ -9,7 +9,7 @@ import javafx.scene.shape.Rectangle;
  * The Bird class contains the unique properties and methods related to the bird
  * 
  * @author Andrew Polyak
- * @version July 14, 2024
+ * @version July 20, 2024
  */
 public class Bird {
 
@@ -20,11 +20,11 @@ public class Bird {
 	private static final double MAX_FALL_VELOCITY = 12; // Represents the bird's maximum vertical falling velocity
 	private static final double GRAVITY = 0.3; // Represents the gravity which will accumulate on the falling velocity
 	
-	private static final int X_SPAWN = 500; // Represents the default x-coordinate position for the bird's spawn
-	private static final int Y_SPAWN = 325; // Represents the default y-coordinate position for the bird's spawn
+	private static final int X_SPAWN = 497; // Represents the default x-coordinate position for the bird's spawn
+	private static final int Y_SPAWN = 324; // Represents the default y-coordinate position for the bird's spawn
 	
 	private static final int X_HIT_BOX_SYNC = 11; // Represents the x-coordinate offset between the bird sprite and bird hit box
-	private static final int Y_HIT_BOX_SYNC = -3; // Represents the y-coordinate offset between the bird sprite and bird hit box
+	private static final int Y_HIT_BOX_SYNC = 0; // Represents the y-coordinate offset between the bird sprite and bird hit box
 	
 	private static final double STANDARD_ROTATION = 0; // Represents the standard rotation of the bird
 	private static final double MAX_UP_ROTATION = -40; // Represents the maximum upward rotation of the bird

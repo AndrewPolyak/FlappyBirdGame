@@ -47,9 +47,34 @@
                   </AnchorPane>
                   <AnchorPane fx:id="gameModelScreen" prefHeight="650.0" prefWidth="1000.0">
                      <children>
-                        <ImageView fx:id="bird" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="birdOne" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../game_assets/yellow_bird.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="birdTwo" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../game_assets/red_bird.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="birdThree" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" visible="false">
                            <image>
                               <Image url="@../../game_assets/blue_bird.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="birdFour" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../game_assets/green_bird.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="birdFive" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../game_assets/purple_bird.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="birdSix" fitHeight="60.0" fitWidth="85.0" layoutX="457.0" layoutY="298.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                           <image>
+                              <Image url="@../../game_assets/orange_bird.png" />
                            </image>
                         </ImageView>
                         <ImageView fx:id="bottomPipeOne" fitHeight="310.0" fitWidth="100.0" layoutX="1010.0" layoutY="455.0" pickOnBounds="true">
@@ -82,13 +107,42 @@
                               <Image url="@../../game_assets/top_pipe.png" />
                            </image>
                         </ImageView>
-                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="502.0" layoutY="328.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
+                        <Circle fx:id="birdHitBox" fill="WHITE" layoutX="502.0" layoutY="328.0" radius="26.0" stroke="BLACK" strokeType="INSIDE" visible="false" />
                         <Rectangle fx:id="topPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="topPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="topPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="-110.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="bottomPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="bottomPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="bottomPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
+                        <AnchorPane fx:id="gameEndView" layoutX="258.0" layoutY="228.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+                           <children>
+                              <Text layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRESS SPACE TO CONTINUE" textAlignment="CENTER" wrappingWidth="482.1367645263672">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="30.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="High Score" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text layoutX="278.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Score" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="gameEndHighScoreCounter" layoutX="14.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="23.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="gameEndLastScoreCounter" layoutX="278.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                                 <font>
+                                    <Font name="Eras Bold ITC" size="23.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
                      </children>
                   </AnchorPane>
                   <Text fx:id="scoreCounter" fill="WHITE" layoutX="381.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" visible="false" wrappingWidth="238.13671875">
@@ -121,38 +175,62 @@
                   </AnchorPane>
                   <AnchorPane layoutX="123.0" layoutY="521.0" prefHeight="54.0" prefWidth="754.0">
                      <children>
-                        <Button fx:id="mapOneToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="55.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="MAP 1">
+                        <Button fx:id="mapOneToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="55.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="Day Time">
                            <font>
                               <Font name="Eras Bold ITC" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="mapTwoToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="278.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="MAP 2">
+                        <Button fx:id="mapTwoToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="278.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="Evening">
                            <font>
                               <Font name="Eras Bold ITC" size="20.0" />
                            </font>
                         </Button>
-                        <Button fx:id="mapThreeToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="501.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="MAP 3">
+                        <Button fx:id="mapThreeToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="501.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="Night Time">
                            <font>
                               <Font name="Eras Bold ITC" size="20.0" />
                            </font>
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane layoutX="124.0" layoutY="588.0" prefHeight="54.0" prefWidth="754.0">
+                  <AnchorPane layoutX="66.0" layoutY="586.0" prefHeight="54.0" prefWidth="870.0">
                      <children>
-                        <Button fx:id="birdOneToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="55.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="BIRD 1">
+                        <Button fx:id="birdOneToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Yellow Bird">
                            <font>
-                              <Font name="Eras Bold ITC" size="20.0" />
+                              <Font name="Eras Bold ITC" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="birdTwoToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="278.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="BIRD 2">
+                        <Button fx:id="birdTwoToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="150.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Red Bird">
                            <font>
-                              <Font name="Eras Bold ITC" size="20.0" />
+                              <Font name="Eras Bold ITC" size="15.0" />
                            </font>
                         </Button>
-                        <Button fx:id="birdThreeToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="501.0" layoutY="11.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="198.0" text="BIRD 3">
+                        <Button fx:id="birdThreeToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="300.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Blue Bird">
                            <font>
-                              <Font name="Eras Bold ITC" size="20.0" />
+                              <Font name="Eras Bold ITC" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="birdFourToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="450.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Green Bird">
+                           <font>
+                              <Font name="Eras Bold ITC" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="birdFiveToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="600.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Purple Bird">
+                           <font>
+                              <Font name="Eras Bold ITC" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="birdSixToggleBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="750.0" layoutY="8.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Orange Bird">
+                           <font>
+                              <Font name="Eras Bold ITC" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="859.0" layoutY="5.0" prefHeight="69.0" prefWidth="139.0">
+                     <children>
+                        <Button fx:id="resetStatsBtn" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="19.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="120.0" text="Reset Stats">
+                           <font>
+                              <Font name="Eras Bold ITC" size="15.0" />
                            </font>
                         </Button>
                      </children>
