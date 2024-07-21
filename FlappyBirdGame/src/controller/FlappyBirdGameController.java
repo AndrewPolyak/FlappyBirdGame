@@ -3,7 +3,6 @@ package controller;
 import java.security.SecureRandom;
 
 import javafx.animation.AnimationTimer;
-import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.AudioClip;
@@ -20,6 +19,8 @@ import model.Tube;
  */
 public class FlappyBirdGameController {
 
+	private DataController data;
+	
 	private AnimationTimer animate; // Represents the animation timer that will run and animate the game
 	
 	private Tube topTubeOne; // Represents the first top tube
@@ -33,6 +34,10 @@ public class FlappyBirdGameController {
 	
 	private AnchorPane gameScreen; // Represents the UI elements of the game (i.e., bird, tubes, score)
 	private AnchorPane postGameScreen; // TODO
+	
+	private Text gameEndHighScore; // TODO
+	private Text gameEndLastScore; // TODO
+	private int allTimeHighScore; // TODO
 	
 	private Text scoreCounter; // Represents the score counter UI element
 	private int score; // Represents the current score
@@ -64,10 +69,24 @@ public class FlappyBirdGameController {
 	
 	
 	// TODO doc
-	public FlappyBirdGameController(AnchorPane gameScreen, AnchorPane postGameScreen, Bird bird, Text scoreCounter, 
-			Tube topTubeOne, Tube topTubeTwo, Tube topTubeThree, Tube bottomTubeOne, Tube bottomTubeTwo, Tube bottomTubeThree) {
+	public FlappyBirdGameController(
+			AnchorPane gameScreen, 
+			AnchorPane postGameScreen, 
+			Text gameEndHighScore, 
+			Text gameEndLastScore, 
+			Bird bird, 
+			Text scoreCounter, 
+			Tube topTubeOne, 
+			Tube topTubeTwo, 
+			Tube topTubeThree, 
+			Tube bottomTubeOne, 
+			Tube bottomTubeTwo, 
+			Tube bottomTubeThree) {
+		this.data = new DataController();
 		this.gameScreen = gameScreen;
 		this.postGameScreen = postGameScreen;
+		this.gameEndHighScore = gameEndHighScore;
+		this.gameEndLastScore = gameEndLastScore;
 		this.bird = bird;
 		this.scoreCounter = scoreCounter;
 		this.topTubeOne = topTubeOne;
@@ -86,6 +105,11 @@ public class FlappyBirdGameController {
 	 * The play method sets up UI elements related to gameplay, gives an initial flap to the bird, and calls the AnimationTimer handler override method
 	 */
 	public void play() {
+		// Initialize high score
+		allTimeHighScore = data.loadHighScore();
+		gameEndHighScore.setText(allTimeHighScore + "");
+		
+		// Initialize score counter
 		score = 0;
 		scoreCounter.setText(score + "");
 		scoreCounter.setVisible(true); // Display the score counter on the UI
@@ -339,9 +363,23 @@ public class FlappyBirdGameController {
 			respawnTubes(true, true, true);
 			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
 			scoreCounter.setVisible(false); // Hide score counter
+			updateHighScore(); // Update high score counter on post game screen
 			postGameScreen.setVisible(true);
 			postGameScreen.requestFocus();
 		} 
+	}
+	
+	
+	/**
+	 * TODO
+	 */
+	private void updateHighScore() {
+		if (score > Integer.parseInt(gameEndLastScore.getText())) {
+			gameEndHighScore.setText(score + "");
+			System.out.println(score);
+			data.saveData(score + "");
+		}
+		gameEndLastScore.setText(score + "");
 	}
 	
 	

@@ -162,10 +162,8 @@ public class AppController implements Initializable {
 	/*
 	 * TODO LIST
 	 * 
-	 * 1: Add data loading & saving to update and display your high score
-	 * 2: Add end-of-game screen that displays the score achieved & your high score
-	 * 3: Add a button that allows you to reset your high score to 0
-	 * 4: Complete documentation; Generate JavaDoc
+	 * 1: Add a button that allows you to reset your high score to 0
+	 * 2: Complete documentation; Generate JavaDoc
 	 */
 	
     
@@ -217,7 +215,9 @@ public class AppController implements Initializable {
 		
 		game = new FlappyBirdGameController(
 				gameScreen, 
-				gameEndView,  
+				gameEndView,
+				gameEndHighScoreCounter,
+				gameEndLastScoreCounter,
 				initializeBirdModel(), scoreCounter, 
 				initializeTubeModel(topTubeOne, topPipeOne, topPipeOneHitBox),
 				initializeTubeModel(topTubeTwo, topPipeTwo, topPipeTwoHitBox), 

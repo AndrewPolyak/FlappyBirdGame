@@ -114,7 +114,7 @@
                         <Rectangle fx:id="bottomPipeOneHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="bottomPipeTwoHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
                         <Rectangle fx:id="bottomPipeThreeHitBox" arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="310.0" layoutX="1010.0" layoutY="455.0" stroke="BLACK" strokeType="INSIDE" visible="false" width="100.0" />
-                        <AnchorPane fx:id="gameEndView" layoutX="258.0" layoutY="228.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
+                        <AnchorPane fx:id="gameEndView" layoutX="234.0" layoutY="254.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white; -fx-border-color: black;" visible="false">
                            <children>
                               <Text layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRESS SPACE TO CONTINUE" textAlignment="CENTER" wrappingWidth="482.1367645263672">
                                  <font>
@@ -131,12 +131,12 @@
                                     <Font name="Eras Bold ITC" size="23.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="gameEndHighScoreCounter" layoutX="14.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                              <Text fx:id="gameEndHighScoreCounter" layoutX="14.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="192.1367645263672">
                                  <font>
                                     <Font name="Eras Bold ITC" size="23.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="gameEndLastScoreCounter" layoutX="278.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="X" textAlignment="CENTER" wrappingWidth="192.1367645263672">
+                              <Text fx:id="gameEndLastScoreCounter" layoutX="278.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="192.1367645263672">
                                  <font>
                                     <Font name="Eras Bold ITC" size="23.0" />
                                  </font>
