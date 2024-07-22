@@ -401,7 +401,7 @@ public class FlappyBirdGameController {
 	 * If the user has achieved a new high score, this is reflected in the game-end screen and is saved to the user's high-score database
 	 */
 	private void updateHighScore() {
-		if (score > Integer.parseInt(gameEndLastScore.getText())) { // If new high score was achieved...
+		if (score > Integer.parseInt(gameEndHighScore.getText())) { // If new high score was achieved...
 			gameEndHighScore.setText(score + ""); // Display the new high score on the post-game screen
 			mainMenuHighScoreCounter.setText(score + ""); // Display the new high score on the main menu
 			data.saveHighScore(score + ""); // Save the new high score
