@@ -164,6 +164,20 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="5.0" layoutX="90.0" layoutY="79.0" stroke="WHITE" strokeType="INSIDE" width="428.0" />
                      </children>
                   </AnchorPane>
+                  <AnchorPane layoutX="276.0" layoutY="164.0" prefHeight="86.0" prefWidth="448.0">
+                     <children>
+                        <Text fill="WHITE" layoutX="71.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HIGH SCORE" textAlignment="CENTER" wrappingWidth="305.9366455078125">
+                           <font>
+                              <Font name="Eras Bold ITC" size="35.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="mainMenuHighScoreCounter" fill="WHITE" layoutX="104.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="238.13671875">
+                           <font>
+                              <Font name="Impact" size="35.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
                   <AnchorPane layoutX="259.0" layoutY="450.0" prefHeight="84.0" prefWidth="480.0">
                      <children>
                         <Text fill="WHITE" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRESS SPACE TO PLAY" textAlignment="CENTER" wrappingWidth="482.1367645263672">

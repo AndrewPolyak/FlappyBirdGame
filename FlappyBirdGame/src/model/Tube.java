@@ -7,7 +7,7 @@ import javafx.scene.shape.Rectangle;
  * The Tube class contains the unique properties and methods related to tubes
  * 
  * @author Andrew Polyak
- * @version July 19, 2024
+ * @version July 21, 2024
  */
 public class Tube {
 	
@@ -15,18 +15,16 @@ public class Tube {
 	
 	private static final double X_VELOCITY = 2; // Represents the horizontal velocity of the tube from right-to-left
 	
-	private double height; // Represents the tube's height
-	
 	private ImageView tube; // Represents the tube sprite
 	private Rectangle tubeHitBox; // Represents the tube hit box
 	
-	private static final int SHORT_PIPE_TOP_Y_SPAWN = -210; // TODO
-	private static final int TALL_PIPE_TOP_Y_SPAWN = 0; // TODO
-	private static final int REGULAR_PIPE_TOP_Y_SPAWN = -110; // TODO
+	private static final int SHORT_PIPE_TOP_Y_SPAWN = -210; // Represents the y-coordinate the top pipe will occupy if it spawns in as short
+	private static final int TALL_PIPE_TOP_Y_SPAWN = 0; // Represents the y-coordinate the top pipe will occupy if it spawns in as tall
+	private static final int REGULAR_PIPE_TOP_Y_SPAWN = -110; // Represents the y-coordinate the top pipe will occupy if it spawns in as regular
 	
-	private static final int SHORT_PIPE_BOTTOM_Y_SPAWN = 555; // TODO
-	private static final int TALL_PIPE_BOTTOM_Y_SPAWN = 355; // TODO
-	private static final int REGULAR_PIPE_BOTTOM_Y_SPAWN = 455; // TODO
+	private static final int SHORT_PIPE_BOTTOM_Y_SPAWN = 555; // Represents the y-coordinate the bottom pipe will occupy if it spawns in as short
+	private static final int TALL_PIPE_BOTTOM_Y_SPAWN = 355; // Represents the y-coordinate the bottom pipe will occupy if it spawns in as tall
+	private static final int REGULAR_PIPE_BOTTOM_Y_SPAWN = 455; // Represents the y-coordinate the bottom pipe will occupy if it spawns in as regular
 	
 
 	/**
@@ -64,14 +62,14 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The spawnRegularTube method re-positions the tube's y-coordinate to make it appear as "regular size"
 	 * 
 	 * @param topTube
 	 */
 	public void spawnRegularTube(boolean topTube) {
-		if (topTube) {
+		if (topTube) { // If the tube is on the top of the screen
 			tubeHitBox.setLayoutY(REGULAR_PIPE_TOP_Y_SPAWN);
-		} else {
+		} else { // If the tube is on the bottom of the screen
 			tubeHitBox.setLayoutY(REGULAR_PIPE_BOTTOM_Y_SPAWN);
 		}
 		syncHitBox();
@@ -79,14 +77,14 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The spawnTallTube method re-positions the tube's y-coordinate to make it appear as "tall size"
 	 * 
 	 * @param topTube
 	 */
 	public void spawnTallTube(boolean topTube) {
-		if (topTube) {
+		if (topTube) { // If the tube is on the top of the screen
 			tubeHitBox.setLayoutY(TALL_PIPE_TOP_Y_SPAWN);
-		} else {
+		} else { // If the tube is on the bottom of the screen
 			tubeHitBox.setLayoutY(TALL_PIPE_BOTTOM_Y_SPAWN);
 		}
 		syncHitBox();
@@ -94,14 +92,14 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The spawnShortTube method re-positions the tube's y-coordinate to make it appear as "short size"
 	 * 
 	 * @param topTube
 	 */
 	public void spawnShortTube(boolean topTube) {
-		if (topTube) {
+		if (topTube) { // If the tube is on the top of the screen
 			tubeHitBox.setLayoutY(SHORT_PIPE_TOP_Y_SPAWN);
-		} else {
+		} else { // If the tube is on the bottom of the screen
 			tubeHitBox.setLayoutY(SHORT_PIPE_BOTTOM_Y_SPAWN);
 		}
 		syncHitBox();
@@ -118,17 +116,7 @@ public class Tube {
 	
 
 	/**
-	 * TODO
-	 * 
-	 * @return
-	 */
-	public double getHeight() {
-		return height;
-	}
-
-
-	/**
-	 * TODO
+	 * The getxCoord method is an accessor for the Tube object's x coordinate
 	 * 
 	 * @return
 	 */
@@ -138,7 +126,7 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The setyCoord method is a mutator for the Tube object's y coordinate
 	 * 
 	 * @param yCoord
 	 */
@@ -148,7 +136,7 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The setVisible method makes the Tube object visible
 	 */
 	public void setVisible() {
 		tube.setVisible(true);
@@ -156,7 +144,7 @@ public class Tube {
 	
 	
 	/**
-	 * TODO
+	 * The getHitBox method is an accessor for the Tube object's hit box
 	 * 
 	 * @return
 	 */

@@ -19,7 +19,7 @@ import model.Tube;
  */
 public class FlappyBirdGameController {
 
-	private DataController data;
+	private DataController data; // Represents a DataController object to save and load high score data
 	
 	private AnimationTimer animate; // Represents the animation timer that will run and animate the game
 	
@@ -33,11 +33,13 @@ public class FlappyBirdGameController {
 	private Bird bird; // Represents the bird model
 	
 	private AnchorPane gameScreen; // Represents the UI elements of the game (i.e., bird, tubes, score)
-	private AnchorPane postGameScreen; // TODO
+	private AnchorPane postGameScreen; // Represents the UI elements of the post-game screen
 	
-	private Text gameEndHighScore; // TODO
-	private Text gameEndLastScore; // TODO
-	private int allTimeHighScore; // TODO
+	private Text gameEndHighScore; // Represents the high score displayed on postGameScreen
+	private Text gameEndLastScore; // Represents the score achieved from the last game played displayed on postGameScreen
+	private int allTimeHighScore; // Represents gameEndHighScore as an integer value
+	
+	private Text mainMenuHighScoreCounter; // Represents the high score displayed on main menu
 	
 	private Text scoreCounter; // Represents the score counter UI element
 	private int score; // Represents the current score
@@ -64,16 +66,32 @@ public class FlappyBirdGameController {
 	
 	private SecureRandom random; // Represents a random number generator
 	
-	private AudioClip gameOverSound; // TODO
-	private AudioClip scoreAddition; // TODO
+	private AudioClip gameOverSound; // Represents an AudioClip object representing the sound effect played for the game-over instance
+	private AudioClip scoreAddition; // Represents an AudioClip object representing the sound effect played for when the player scores a point
 	
 	
-	// TODO doc
+	/**
+	 * The FlappyBirdGameController constructor initializes all elements related to running a Flappy Bird game
+	 * 
+	 * @param gameScreen
+	 * @param postGameScreen
+	 * @param gameEndHighScore
+	 * @param gameEndLastScore
+	 * @param bird
+	 * @param scoreCounter
+	 * @param topTubeOne
+	 * @param topTubeTwo
+	 * @param topTubeThree
+	 * @param bottomTubeOne
+	 * @param bottomTubeTwo
+	 * @param bottomTubeThree
+	 */
 	public FlappyBirdGameController(
 			AnchorPane gameScreen, 
 			AnchorPane postGameScreen, 
 			Text gameEndHighScore, 
 			Text gameEndLastScore, 
+			Text mainMenuHighScoreCounter,
 			Bird bird, 
 			Text scoreCounter, 
 			Tube topTubeOne, 
@@ -87,6 +105,7 @@ public class FlappyBirdGameController {
 		this.postGameScreen = postGameScreen;
 		this.gameEndHighScore = gameEndHighScore;
 		this.gameEndLastScore = gameEndLastScore;
+		this.mainMenuHighScoreCounter = mainMenuHighScoreCounter;
 		this.bird = bird;
 		this.scoreCounter = scoreCounter;
 		this.topTubeOne = topTubeOne;
@@ -126,9 +145,9 @@ public class FlappyBirdGameController {
 			 */
 			@Override
 			public void handle(long arg0) {
-				if (initialSpawn) {
-					respawnTubes(true, true, true);
-					initialSpawn = false;
+				if (initialSpawn) { // Perform this block of logic before the main logic block
+					respawnTubes(true, true, true); // Ensure all tubes are spawned properly
+					initialSpawn = false; // Ensure this block doesn't run again
 				} else {
 					respawnTubes(false, false, false); // Logic to respawn tubes once they reach the left side of the screen (for game to run indefinitely)
 					moveBirdListener(); // Logic for player to control the bird
@@ -185,43 +204,37 @@ public class FlappyBirdGameController {
 	
 	
 	/**
-	 * The flapComplete method returns true if the bird's y-coordinate height has met or exceeded it's maximum
-	 * y-coordinate per rise relative to it's y-coordinate when the rise began and returns false if the maximum
-	 * has not been exceeded yet
-	 * 
-	 * @return true if the max flap height is met, false otherwise
-	 */
-	private boolean flapComplete() {
-		return yCoordStart - bird.getyCoord() >= Bird.getMaxRise();
-	}
-	
-	
-	/**
-	 * TODO
+	 * The moveTubes method contains the logic for infinitely moving and respawning the tubes so the gameplay can continue indefinitely
 	 */
 	private void moveTubes() {
+		// Start moving the first pair of tubes by default
 		topTubeOne.move();
 		bottomTubeOne.move();
 		
+		// Once the boolean is true, move the second pair of tubes
 		if (tubeTwoPairMoving) {
 			topTubeTwo.move();
 			bottomTubeTwo.move();
 		}
 		
+		// Once the boolean is true, move the third pair of tubes
 		if (tubeThreePairMoving) {
 			topTubeThree.move();
 			bottomTubeThree.move();
 		}
 		
+		// If the second pair of tubes are sufficient distance from the first pair, set their movement boolean to true
 		if (tubesMaxDistanceApart(topTubeTwo, topTubeOne)) {
 			tubeTwoPairMoving = true;
 		}
 		
+		// If the third pair of tubes are sufficient distance from the second pair, set their movement boolean to true
 		if (tubesMaxDistanceApart(topTubeThree, topTubeTwo)) {
 			tubeThreePairMoving = true;
 		}
 		
-		if (tubesAtScreenEnd(topTubeOne)) {
+		// Once the tube pairs reach the end of the screen, respawn them at the starting position to continue the gameplay indefinitely (recycle 3 pairs infinitely)
+		if (tubesAtScreenEnd(topTubeOne)) { // If the first pair reaches the end of the screen, respawn them, and so on...
 			respawnTubes(true, false, false);
 		} else if (tubesAtScreenEnd(topTubeTwo)) {
 			respawnTubes(false, true, false);
@@ -232,46 +245,35 @@ public class FlappyBirdGameController {
 	
 	
 	/**
-	 * TODO
-	 * 
-	 * @param delayedTube
-	 * @param movingTube
-	 * @return
-	 */
-	private boolean tubesMaxDistanceApart(Tube delayedTube, Tube movingTube) {
-		return delayedTube.getxCoord() - movingTube.getxCoord() >= TUBES_MAX_DISTANCE_APART;
-	}
-	
-	
-	/**
-	 * TODO
+	 * The respawnTubes method takes in a boolean value to represent which pair of tubes should be respawned,
+	 * and respawns them at the beginning of their cycle in a random position (i.e., gap is near top, near bottom, or in middle)
 	 */
 	private void respawnTubes(boolean respawnOne, boolean respawnTwo, boolean respawnThree) {
-		if (respawnOne) { 
-			setTubeHeight(topTubeOne, bottomTubeOne, random.nextInt(3));
+		if (respawnOne) { // Respawn the first tube pair
+			setTubeHeight(topTubeOne, bottomTubeOne, random.nextInt(3)); // Randomly pick the tube's heights
 			topTubeOne.spawn();
 			bottomTubeOne.spawn();
-			tubeOnePairScoreCounts = true;
+			tubeOnePairScoreCounts = true; // Allow the tube pair to once again allow the user to score if they make it through them
 		}
 		
-		if (respawnTwo) {
-			setTubeHeight(topTubeTwo, bottomTubeTwo, random.nextInt(3));
+		if (respawnTwo) { // Respawn the second tube pair
+			setTubeHeight(topTubeTwo, bottomTubeTwo, random.nextInt(3)); // Randomly pick the tube's heights
 			topTubeTwo.spawn();
 			bottomTubeTwo.spawn();
-			tubeTwoPairScoreCounts = true;
+			tubeTwoPairScoreCounts = true; // Allow the tube pair to once again allow the user to score if they make it through them
 		}
 		
-		if (respawnThree) {
-			setTubeHeight(topTubeThree, bottomTubeThree, random.nextInt(3));
+		if (respawnThree) { // Respawn the third tube pair
+			setTubeHeight(topTubeThree, bottomTubeThree, random.nextInt(3)); // Randomly pick the tube's heights
 			topTubeThree.spawn();
 			bottomTubeThree.spawn();
-			tubeThreePairScoreCounts = true;
+			tubeThreePairScoreCounts = true; // Allow the tube pair to once again allow the user to score if they make it through them
 		}
 	}
 	
 	
 	/**
-	 * TODO
+	 * The setTubeHeight method takes in a tube pair and a randomly generated modifier, then sets the tube's heights accordingly
 	 * 
 	 * @param topTube
 	 * @param bottomTube
@@ -284,25 +286,13 @@ public class FlappyBirdGameController {
 			
 		} else if (modifier == 1) { // Top pipe is tall; Bottom pipe is short
 			topTube.spawnTallTube(true);
-			bottomTube.spawnShortTube(false); // FIXME
+			bottomTube.spawnShortTube(false);
 			
 		} else if (modifier == 2){ // Top pipe is short; Bottom pipe is tall
 			topTube.spawnShortTube(true);
-			bottomTube.spawnTallTube(false); // FIXME
+			bottomTube.spawnTallTube(false);
 			
 		}
-	}
-	
-	
-	/**
-	 * TODO
-	 * 
-	 * @param bottomTube
-	 * @param topTube
-	 * @return
-	 */
-	private boolean tubesAtScreenEnd(Tube topTube) {
-		return topTube.getxCoord() <= LEFT_WALL;
 	}
 	
 	
@@ -342,6 +332,59 @@ public class FlappyBirdGameController {
 	
 	
 	/**
+	 * The endGameListener method ends the game if the bird collides with the floor, ceiling, or any tube
+	 */
+	private void endGameListener() {
+		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
+			gameOverSound.play();
+			bird.spawn(); // Reset bird
+			respawnTubes(true, true, true); // Reset all tubes
+			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
+			scoreCounter.setVisible(false); // Hide score counter
+			updateHighScore(); // Update high score counter on post game screen
+			postGameScreen.setVisible(true); // Display the post-game screen
+			postGameScreen.requestFocus();
+		} 
+	}
+	
+	
+	/**
+	 * The flapComplete method returns true if the bird's y-coordinate height has met or exceeded it's maximum
+	 * y-coordinate per rise relative to it's y-coordinate when the rise began and returns false if the maximum
+	 * has not been exceeded yet
+	 * 
+	 * @return true if the max flap height is met, false otherwise
+	 */
+	private boolean flapComplete() {
+		return yCoordStart - bird.getyCoord() >= Bird.getMaxRise();
+	}
+	
+	
+	/**
+	 * The tubesMaxDistanceApart method checks whether the non-moving tube is TUBES_MAX_DISTANCE_APART away from the moving tube
+	 * 
+	 * @param delayedTube
+	 * @param movingTube
+	 * @return true if the max distance has been met or exceeded, false otherwise
+	 */
+	private boolean tubesMaxDistanceApart(Tube delayedTube, Tube movingTube) {
+		return delayedTube.getxCoord() - movingTube.getxCoord() >= TUBES_MAX_DISTANCE_APART;
+	}
+	
+	
+	/**
+	 * The tubesAtScreenEnd method checks if a tube pair (just checking topTube is enough, since the bottomTube is synced) has reached the end of the screen)
+	 * 
+	 * @param bottomTube
+	 * @param topTube
+	 * @return true if the tube has reached LEFT_WALL, false otherwise
+	 */
+	private boolean tubesAtScreenEnd(Tube topTube) {
+		return topTube.getxCoord() <= LEFT_WALL;
+	}
+	
+	
+	/**
 	 * The tubesPassedBird method checks if the tubes have successfully passed by the bird without the bird hitting them (true) or not (false)
 	 * 
 	 * @param bottomTube
@@ -354,31 +397,17 @@ public class FlappyBirdGameController {
 	
 	
 	/**
-	 * The endGameListener method ends the game if the bird collides with the floor, ceiling, or any tube
-	 */
-	private void endGameListener() {
-		if (birdTouchingWall() || birdTouchingTube()) { // If the bird collides with the floor, ceiling, or any tube...
-			gameOverSound.play();
-			bird.spawn(); // Reset bird
-			respawnTubes(true, true, true);
-			animate.stop(); // Stop animation timer (i.e., frame generation & game movement)
-			scoreCounter.setVisible(false); // Hide score counter
-			updateHighScore(); // Update high score counter on post game screen
-			postGameScreen.setVisible(true);
-			postGameScreen.requestFocus();
-		} 
-	}
-	
-	
-	/**
-	 * TODO
+	 * The updateHighScore method displays the user's achieved score and high score on the game-end screen <br>
+	 * If the user has achieved a new high score, this is reflected in the game-end screen and is saved to the user's high-score database
 	 */
 	private void updateHighScore() {
-		if (score > Integer.parseInt(gameEndLastScore.getText())) {
-			gameEndHighScore.setText(score + "");
-			data.saveData(score + "");
+		if (score > Integer.parseInt(gameEndLastScore.getText())) { // If new high score was achieved...
+			gameEndHighScore.setText(score + ""); // Display the new high score on the post-game screen
+			mainMenuHighScoreCounter.setText(score + ""); // Display the new high score on the main menu
+			data.saveHighScore(score + ""); // Save the new high score
 		}
 		gameEndLastScore.setText(score + "");
+		
 	}
 	
 	

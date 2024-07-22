@@ -2,43 +2,34 @@ package controller;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 
 /**
  * TODO
  * 
  * @author Andrew Polyak
- * @version June 20, 2024
+ * @version June 21, 2024
  */
 public class FlappyBirdPostGameMenuController {
 
-	AnchorPane postGameMenu; // TODO
-	AnchorPane mainMenu; // TODO
-	Text highScore; // TODO
-	
-	int lastScore; // TODO
+	AnchorPane postGameMenu; // Represents the menu displayed after the game ends
+	AnchorPane mainMenu; // Represents the main menu of the application
 	
 	
 	/**
-	 * TODO
+	 * The FlappyBirdPostGameMenuController constructor initializes the post-game and main menus
 	 * 
 	 * @param postGameMenu
 	 * @param mainMenu
-	 * @param mapOneToggleBtn
-	 * @param highScore
-	 * @param lastScore
 	 */
 	public FlappyBirdPostGameMenuController(AnchorPane postGameMenu, AnchorPane mainMenu) {
 		super();
 		this.postGameMenu = postGameMenu;
 		this.mainMenu = mainMenu;
-		this.highScore = highScore;
-		this.lastScore = lastScore;
 	}
 
 
 	/**
-	 * TODO
+	 * The detectInput method listens for user input to navigate out of the post-game screen
 	 */
 	public void detectInput() {
 		returnToMainMenuHandler();
@@ -46,11 +37,12 @@ public class FlappyBirdPostGameMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The returnToMainMenuHandler method listens for a SPACE input to navigate back to the main menu
 	 */
 	private void returnToMainMenuHandler() {
 		postGameMenu.requestFocus();
 		
+		// If the user presses SPACE, exit the post-game menu and show the main menu
 		postGameMenu.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.SPACE) {
 				postGameMenu.setVisible(false);

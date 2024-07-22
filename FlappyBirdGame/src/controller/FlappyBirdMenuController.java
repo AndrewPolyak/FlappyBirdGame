@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 
 /**
  * The FlappyBirdMenuController class contains the logic related to controlling the application's menu
@@ -23,11 +24,11 @@ public class FlappyBirdMenuController {
 	private Button birdOneToggleBtn; // Represents the button to toggle bird one
 	private Button birdTwoToggleBtn; // Represents the button to toggle bird two
 	private Button birdThreeToggleBtn; // Represents the button to toggle bird three
-	private Button birdFourToggleBtn; // TODO
-	private Button birdFiveToggleBtn; // TODO
-	private Button birdSixToggleBtn; // TODO
+	private Button birdFourToggleBtn; // Represents the button to toggle bird four
+	private Button birdFiveToggleBtn; // Represents the button to toggle bird five
+	private Button birdSixToggleBtn; // Represents the button to toggle bird six
 	
-	private Button resetStatsBtn; // TODO
+	private Button resetStatsBtn; // Represents the button to reset the user's high score
 	
 	private ImageView mapOne; // Represents map one
 	private ImageView mapTwo; // Represents map two
@@ -36,16 +37,18 @@ public class FlappyBirdMenuController {
 	private ImageView birdOne; // Represents bird one
 	private ImageView birdTwo; // Represents bird two
 	private ImageView birdThree; // Represents bird three
-	private ImageView birdFour; // TODO
-	private ImageView birdFive; // TODO
-	private ImageView birdSix; // TODO
+	private ImageView birdFour; // Represents bird four
+	private ImageView birdFive; // Represents bird five
+	private ImageView birdSix; // Represents bird six
 	
-	private boolean birdOneVisible = true; // Represents whether bird one is selected and visible
+	private boolean birdOneVisible = true; // Represents whether bird one is selected and visible (default is true)
 	private boolean birdTwoVisible = false; // Represents whether bird two is selected and visible
-	private boolean birdThreeVisible = false; // TODO
-	private boolean birdFourVisible = false; // TODO
-	private boolean birdFiveVisible = false; // TODO
-	private boolean birdSixVisible = false; // TODO
+	private boolean birdThreeVisible = false; // Represents whether bird three is selected and visible
+	private boolean birdFourVisible = false; // Represents whether bird four is selected and visible
+	private boolean birdFiveVisible = false; // Represents whether bird five is selected and visible
+	private boolean birdSixVisible = false; // Represents whether bird six is selected and visible
+	
+	private Text mainMenuHighScoreCounter; // Represents the high score displayed on main menu
 	
 	private Runnable onGameStart; // Represents the thread to run the game
 	
@@ -78,7 +81,7 @@ public class FlappyBirdMenuController {
 			Button birdOneToggleBtn, Button birdTwoToggleBtn, Button birdThreeToggleBtn, Button birdFourToggleBtn,
 			Button birdFiveToggleBtn, Button birdSixToggleBtn, Button resetStatsBtn, ImageView mapOne, ImageView mapTwo, 
 			ImageView mapThree, ImageView birdOne, ImageView birdTwo, ImageView birdThree, 
-			ImageView birdFour, ImageView birdFive, ImageView birdSix, AnchorPane menuScreen) {
+			ImageView birdFour, ImageView birdFive, ImageView birdSix, AnchorPane menuScreen, Text mainMenuHighScoreCounter) {
 		this.data = new DataController();
 		this.mapOneToggleBtn = mapOneToggleBtn;
 		this.mapTwoToggleBtn = mapTwoToggleBtn;
@@ -99,6 +102,16 @@ public class FlappyBirdMenuController {
 		this.birdFour = birdFour;
 		this.birdFive = birdFive;
 		this.birdSix = birdSix;
+		this.mainMenuHighScoreCounter = mainMenuHighScoreCounter;
+		
+	}
+	
+	
+	/**
+	 * The updateStats method updates the main menu high score display with the latest high score results
+	 */
+	public void updateStats() {
+		mainMenuHighScoreCounter.setText(data.loadHighScore() + "");
 	}
 	
 	
@@ -165,11 +178,11 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * The birdOneToggleBtnHandler method loads bird one // FIXME
+	 * The birdOneToggleBtnHandler method loads bird one
 	 */
 	private void birdOneToggleBtnHandler() {
 		birdOneToggleBtn.setOnMouseClicked(e -> {
-			birdOne.setVisible(true);
+			birdOne.setVisible(true); // Display bird one
 			birdTwo.setVisible(false);
 			birdThree.setVisible(false);
 			birdFour.setVisible(false);
@@ -187,12 +200,12 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * The birdTwoToggleBtnHandler method loads bird two // FIXME
+	 * The birdTwoToggleBtnHandler method loads bird two
 	 */
 	private void birdTwoToggleBtnHandler() {
 		birdTwoToggleBtn.setOnMouseClicked(e -> {
 			birdOne.setVisible(false);
-			birdTwo.setVisible(true);
+			birdTwo.setVisible(true); // Display bird four
 			birdThree.setVisible(false);
 			birdFour.setVisible(false);
 			birdFive.setVisible(false);
@@ -209,13 +222,13 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * The birdThreeToggleBtnHandler method loads bird three // FIXME
+	 * The birdThreeToggleBtnHandler method loads bird three
 	 */
 	private void birdThreeToggleBtnHandler() {
 		birdThreeToggleBtn.setOnMouseClicked(e -> {
 			birdOne.setVisible(false);
 			birdTwo.setVisible(false);
-			birdThree.setVisible(true);
+			birdThree.setVisible(true); // Display bird three
 			birdFour.setVisible(false);
 			birdFive.setVisible(false);
 			birdSix.setVisible(false);
@@ -231,14 +244,14 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdFourToggleBtnHandler method loads bird four
 	 */
 	private void birdFourToggleBtnHandler() {
 		birdFourToggleBtn.setOnMouseClicked(e -> {
 			birdOne.setVisible(false);
 			birdTwo.setVisible(false);
 			birdThree.setVisible(false);
-			birdFour.setVisible(true);
+			birdFour.setVisible(true); // Display bird four
 			birdFive.setVisible(false);
 			birdSix.setVisible(false);
 			
@@ -253,7 +266,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdFiveToggleBtnHandler method loads bird five
 	 */
 	private void birdFiveToggleBtnHandler() {
 		birdFiveToggleBtn.setOnMouseClicked(e -> {
@@ -261,7 +274,7 @@ public class FlappyBirdMenuController {
 			birdTwo.setVisible(false);
 			birdThree.setVisible(false);
 			birdFour.setVisible(false);
-			birdFive.setVisible(true);
+			birdFive.setVisible(true); // Display bird five
 			birdSix.setVisible(false);
 			
 			birdOneVisible = false;
@@ -275,7 +288,7 @@ public class FlappyBirdMenuController {
 	
 	
 	/**
-	 * TODO
+	 * The birdSixToggleBtnHandler method loads bird six
 	 */
 	private void birdSixToggleBtnHandler() {
 		birdSixToggleBtn.setOnMouseClicked(e -> {
@@ -284,7 +297,7 @@ public class FlappyBirdMenuController {
 			birdThree.setVisible(false);
 			birdFour.setVisible(false);
 			birdFive.setVisible(false);
-			birdSix.setVisible(true);
+			birdSix.setVisible(true); // Display bird six
 			
 			birdOneVisible = false;
 			birdTwoVisible = false;
@@ -338,7 +351,8 @@ public class FlappyBirdMenuController {
 	
 	private void resetStatsBtnHandler() {
 		resetStatsBtn.setOnMouseClicked(e -> {
-			data.saveData("0");
+			data.saveHighScore("0"); // Write the value of 0 to the high score database
+			mainMenuHighScoreCounter.setText("0"); // Set the main menu high score display to 0
 		});
 	}
 	

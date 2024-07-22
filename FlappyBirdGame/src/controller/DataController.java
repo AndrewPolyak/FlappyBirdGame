@@ -8,7 +8,10 @@ import java.util.Scanner;
 
 
 /**
- * TODO
+ * The DataController class contains the logic to load and save the user's high score
+ * 
+ * @author Andrew Polyak
+ * @version June 21, 2024
  */
 public class DataController {
 
@@ -16,18 +19,18 @@ public class DataController {
 	
 	
 	/**
-	 * TODO
+	 * The loadHighScore method loads the user's high score from the USER_DB file
 	 * 
-	 * @return
+	 * @return userData (high score)
 	 */
 	public int loadHighScore() {
-		int userData = 0;
+		int userData = 0; // Default high score is 0
 		
 		try {
 			Scanner fileReader = new Scanner(USER_DB); // Create fileReader to parse the database
 			
 			while (fileReader.hasNext()) { // For each data line of the database
-				userData = fileReader.nextInt();
+				userData = fileReader.nextInt(); // Acquire the high score
 			}
 			fileReader.close();
 			
@@ -40,20 +43,20 @@ public class DataController {
 
 	
 	/**
-	 * TODO
+	 * The saveHighScore method saves the user's high score to the USER_DB file
+	 * 
 	 * @param allTimeHighScore
 	 */
-	public void saveData(String allTimeHighScore) {
+	public void saveHighScore(String allTimeHighScore) {
 		try {
 			FileWriter fileWriter = new FileWriter(USER_DB); // Create fileWriter to write to the database (overwriting the entire thing)
 			
-			fileWriter.write(allTimeHighScore);
+			fileWriter.write(allTimeHighScore); // Save the high score
 			fileWriter.close(); // Close the writer once the database has been fully written to
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 }
