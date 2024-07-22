@@ -12,7 +12,9 @@ If you intend to run this project on your local machine, you need to set the rel
 Here is an overview of my version of Flappy Bird:
 
 GAMEPLAY:
-  - Enjoy a video of me running through the main application
+  - Press space to flap the bird to avoid the oncoming pipes
+  - Your score will be tracked and your high score counter will be updated cross-application
+  - Enjoy a video of me running through the main application (unfortunately there are some compression issues and a watermark, but the demo is still conveyed)
 https://github.com/user-attachments/assets/64036ff9-0c39-4d1c-bddc-15699437683a
 
 
@@ -24,22 +26,3 @@ MAIN MENU:
   - Select between different birds 
 
 ![image](https://github.com/user-attachments/assets/67c9d609-8239-4f40-b0d5-7ace1c4758c0)
-
-
-BACKGROUND OPTIONS:
-
-![image](https://github.com/user-attachments/assets/653b36c9-55ac-48ca-bc55-f62d4df86309)
-
-![image](https://github.com/user-attachments/assets/ad710eeb-316b-4dc6-ab11-65607cfc09bb)
-
-BIRD OPTIONS:
-
-![image](https://github.com/user-attachments/assets/3747bd4d-a38a-4b0d-b6cc-4a10fe79f801)
-
-![image](https://github.com/user-attachments/assets/c7811b7c-e090-4a19-8b5c-fd804e59aa35)
-
-![image](https://github.com/user-attachments/assets/73ec5487-286c-4380-a912-b4bc3a5fe9f2)
-
-![image](https://github.com/user-attachments/assets/faecd00f-4227-49b9-9c87-f429681d7e6b)
-
-![image](https://github.com/user-attachments/assets/7e02e4df-a502-4975-b38f-bbe788694632)
