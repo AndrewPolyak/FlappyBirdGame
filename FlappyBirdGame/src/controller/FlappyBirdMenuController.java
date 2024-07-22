@@ -10,9 +10,11 @@ import javafx.scene.layout.AnchorPane;
  * The FlappyBirdMenuController class contains the logic related to controlling the application's menu
  * 
  * @author Andrew Polyak
- * @version July 20, 2024
+ * @version July 21, 2024
  */
 public class FlappyBirdMenuController {
+	
+	private DataController data;
 	
 	private Button mapOneToggleBtn; // Represents the button to toggle map one
 	private Button mapTwoToggleBtn; // Represents the button to toggle map two
@@ -77,6 +79,7 @@ public class FlappyBirdMenuController {
 			Button birdFiveToggleBtn, Button birdSixToggleBtn, Button resetStatsBtn, ImageView mapOne, ImageView mapTwo, 
 			ImageView mapThree, ImageView birdOne, ImageView birdTwo, ImageView birdThree, 
 			ImageView birdFour, ImageView birdFive, ImageView birdSix, AnchorPane menuScreen) {
+		this.data = new DataController();
 		this.mapOneToggleBtn = mapOneToggleBtn;
 		this.mapTwoToggleBtn = mapTwoToggleBtn;
 		this.mapThreeToggleBtn = mapThreeToggleBtn;
@@ -119,6 +122,9 @@ public class FlappyBirdMenuController {
 		
 		// Detect game start button presses
 		startGameHandler();
+		
+		// Detect reset stats button presses
+		resetStatsBtnHandler();
 	}
 	
 	
@@ -326,6 +332,13 @@ public class FlappyBirdMenuController {
 					onGameStart.run(); // Run game thread
 				}
 			}
+		});
+	}
+	
+	
+	private void resetStatsBtnHandler() {
+		resetStatsBtn.setOnMouseClicked(e -> {
+			data.saveData("0");
 		});
 	}
 	

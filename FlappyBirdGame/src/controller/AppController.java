@@ -162,8 +162,7 @@ public class AppController implements Initializable {
 	/*
 	 * TODO LIST
 	 * 
-	 * 1: Add a button that allows you to reset your high score to 0
-	 * 2: Complete documentation; Generate JavaDoc
+	 * 1: Complete documentation; Generate JavaDoc
 	 */
 	
     

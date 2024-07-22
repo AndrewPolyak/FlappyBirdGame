@@ -376,7 +376,6 @@ public class FlappyBirdGameController {
 	private void updateHighScore() {
 		if (score > Integer.parseInt(gameEndLastScore.getText())) {
 			gameEndHighScore.setText(score + "");
-			System.out.println(score);
 			data.saveData(score + "");
 		}
 		gameEndLastScore.setText(score + "");
