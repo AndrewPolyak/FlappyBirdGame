@@ -12,7 +12,7 @@ Here is an overview of my version of Flappy Bird:
 GAMEPLAY:
   - Press space to flap the bird to avoid the oncoming pipes
   - Your score will be tracked and your high score counter will be updated cross-application
-  - Enjoy a video of me running through the main application (unfortunately there are some compression issues and a watermark, but the demo is still conveyed):
+  - Enjoy a video of me running through the main application (unfortunately, there are some compression issues and a watermark, but the demo is still conveyed):
 https://github.com/user-attachments/assets/64036ff9-0c39-4d1c-bddc-15699437683a
 
 
